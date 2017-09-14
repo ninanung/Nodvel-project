@@ -1,8 +1,8 @@
-var express = require("express");
-var router = express.Router();
-var passport = require("passport");
-var User = require("./models/user");
-var Novel = require("./models/novel");
+const express = require("express");
+const router = express.Router();
+const passport = require("passport");
+const User = require("./models/user");
+const Novel = require("./models/novel");
 
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
@@ -25,11 +25,11 @@ router.use(function (req, res, next) {
 router.get("/", function(req, res, next){
     User.find().sort({ createdAt: "descending" }).exec(function(err, users){
         if(err) { return next(err) }
-        var page = req.params.page;
+        let page = req.params.page;
         if(page == null) { page = 1 }
-        var skipSize = (page - 1) * 10;
-        var limitSize = 10;
-        var pageNum = 1;
+        const skipSize = (page - 1) * 10;
+        const limitSize = 10;
+        let pageNum = 1;
         Novel.count({ ended: true }, function(err, totalCount){
             if(err) throw err;
             pageNum = Math.ceil(totalCount / limitSize);
@@ -44,11 +44,11 @@ router.get("/", function(req, res, next){
 router.get("/:page", function(req, res, next){
     User.find().sort({ createdAt: "descending" }).exec(function(err, users){
         if(err) { return next(err) }
-        var page = req.params.page;
+        let page = req.params.page;
         if(page == null) { page = 1 }
-        var skipSize = (page - 1) * 10;
-        var limitSize = 10;
-        var pageNum = 1;
+        const skipSize = (page - 1) * 10;
+        const limitSize = 10;
+        let pageNum = 1;
         Novel.count({ ended: true }, function(err, totalCount){
             if(err) throw err;
             pageNum = Math.ceil(totalCount / limitSize);
@@ -84,9 +84,9 @@ router.get("/signup", function (req, res) {
 });
 
 router.post("/signup", function (req, res, next) {
-    var username = req.body.username;
-    var password = req.body.password;
-    var confirmPassword = req.body.confirmpassword;
+    const username = req.body.username;
+    const password = req.body.password;
+    const confirmPassword = req.body.confirmpassword;
     if (password === confirmPassword) {
         User.findOne({ username: username }, function (err, user) {
             if (err) { return next(err); }
@@ -94,7 +94,7 @@ router.post("/signup", function (req, res, next) {
                 req.flash("error", "User already exists.");
                 return res.redirect("/signup");
             }
-            var newUser = new User({
+            const newUser = new User({
                 username: username,
                 password: password
             });
