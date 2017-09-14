@@ -1,23 +1,23 @@
-var express = require("express");
-var app = express();
-var http = require("http").Server(app);
-var bodyParser = require("body-parser");
-var flash = require("flash");
-var mongoose = require("mongoose");
-var session = require("express-session");
-var path = require("path");
-var passport = require("passport");
-var cookieParser = require("cookie-parser");
+const express = require("express");
+const app = express();
+const http = require("http").Server(app);
+const bodyParser = require("body-parser");
+const flash = require("flash");
+const mongoose = require("mongoose");
+const session = require("express-session");
+const path = require("path");
+const passport = require("passport");
+const cookieParser = require("cookie-parser");
 
-var setUpPassport = require("./setuppassport");
-var routes = require("./routes");
+const setUpPassport = require("./setuppassport");
+const routes = require("./routes");
 
 mongoose.connect("mongodb://localhost:27017/test");
 setUpPassport();
 
 app.set("port", process.env.PORT || 3000);
 app.set("views", path.join(_dirname, "views"));
-app.set("view engine", "react");
+app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
