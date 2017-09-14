@@ -1,22 +1,22 @@
-var bcrypt = require("bcrypt-nodejs");
-var mongoose = require("mongoose");
+const bcrypt = require("bcrypt-nodejs");
+const mongoose = require("mongoose");
 
-var SALT_FACTOR = 10;
+const SALT_FACTOR = 10;
 
-var userSchema = mongoose.Schema({
-    id = { type: String, required: true, unique: true },
-    password = { type: String, required: true },
-    like = [{
+const userSchema = mongoose.Schema({
+    username: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    like: [{
         developer: String,
         title: String,
         date: { type: Date, default: Date.now }  
     }]
 });
 
-var noop = function() {};
+const noop = function() {};
 
 userSchema.pre("save", function(done) {
-    var user = this;
+    const user = this;
     if(!user.isModified("password")) {
         return done();
     }
@@ -40,6 +40,6 @@ userSchema.methods.checkPassword = function(guess, done) {
     })
 }
 
-var User = mongoose.model("user", userSchema);
+const User = mongoose.model("user", userSchema);
 
 module.exports = User;
