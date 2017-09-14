@@ -1,0 +1,73 @@
+﻿<% include _header %>
+
+<% if (currentUser) { %>
+<h1><%= currentUser.name() %> </h1>
+<hr>
+<h2>Find and Watch!</h2>
+<table style="table-layout: fixed;" class="table table-striped">
+	<thead>
+	<tr>
+		<th scope="row" style="width: 50px;">Num</th>
+		<th style="width: 450px;">Title</th>
+		<th style="width: 100px;">Writer</th>
+		<th style="width: 250px;">Date</th>
+		<th>Genre</th>
+		<th>Like</th>
+	</tr>
+	</thead>
+	<tbody>
+	<% if(contents.length > 0) {%>
+		<% var i = 0 %>
+		<% contents.forEach(function(item) { %>
+		<% i++ %>
+		<tr>
+			<th scope="row"><%= i %></th>
+			<td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><a href="/board/<%= item.title %>"><%= item.title %></a></td>
+			<td><%= item.writer %></td>
+			<td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><%= item.date %></td>
+			<td><%= item.genre</td>
+			<td><%= item.like</td>
+		</tr>
+		<% }) %>
+	<% } else { %>
+		<tr>
+			<td colspan="6">No contents</td>
+		</tr>
+	<% } %>
+	</tbody>
+</table>
+<hr>
+<div class="text-center">
+	<p style="display: inline;">page :</p>
+	<% for(var i = 1; i <= pagination; i++) { %>
+		<li style="display: inline;"><a href="/<%= i %>" class="next-page"><%= i %></a></li>
+	<% } %>
+	<a href="/writenodvel" class="btn btn-default" style="float: right;">Writing New Nodvel</a>
+</div>
+<br>
+<% } else { %>
+<h1>Write your own visual novel!</h1>
+<hr/>
+<br>
+<h2>What is Nodvel?</h2>
+<br>
+<p>Nodvel is compound word of "Node.js" and "novel"</p>
+<br>
+<h2>What it that mean?</h2>
+<br>
+<p>It mean, Nodvel is visual novel making web service.</p>
+<p>Anyone can make their own visual novel in here.</p>
+<p>You don't need any programming or code. Let it belong to us.</p>
+<br>
+<h2>How can i use it?</h2>
+<br>
+<p>We will give you a manual <a href="/help">Here</a>.</p>
+<br>
+<h2>Request for user</h2>
+<br>
+<p>We just offer making tool and have no right of creation.</p>
+<p>We don't have any responsibility about Copyright problem.</p>
+<br>
+<% } %>
+
+<% include _footer %>
