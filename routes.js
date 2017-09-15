@@ -110,3 +110,63 @@ router.post("/signup", function (req, res, next) {
         res.redirect("/signup");
     }
 });
+
+router.get("/search", function(req, res){
+    res.render("search");
+});
+
+router.post("/search", function (req, res) {
+    const searchWord = req.body.search;
+    const searchCondition = { $regex: searchWord };
+    sess = req.session;
+    Novel.find({ ended: true, $or: [{ title: searchCondition }, { story: searchCondition }, { writer: searchCondition }] }).sort({ date: -1 }).exec(function (err, Contents) {
+        if (err) throw err;
+        res.render("search", { contents: Contents });
+    });
+});
+
+router.get("/topten", function(req, res, next) {
+    Novel.find({ ended: true }).sort({ like: -1 }).skip(10).exec(function(err, Contents) {
+        if(err) {
+            return next(err);
+        }
+        else {
+            return res.render("topten", { contents: Contents });
+        }
+    });
+});
+
+router.get("/topten/:genre", function(req, res, next) {
+    const genre = req.params.genre;
+    Novel.find({ ended: true, genre: genre }).sort({ like: -1 }).skip(10).exec(function(err, contents) {
+        if(err) {
+            return next(err);
+        }
+        else {
+            return res.render("topten", { contents: Contents });
+        }
+    });
+});
+
+router.get("/like", function(req, res, next) {
+    sess = req.session;
+    const mylike = sess.user.like;
+    res.render("favorits", { contents: mylike });
+});
+
+router.get("/mynodvel", function(req, res, next) {
+    sess = req.session;
+    const myname = sess.user.username;
+    Novel.find({ writer: myname }).sort({ date: -1 }).exec(function(err, Contents) {
+        if(err) {
+            return next(err);
+        }
+        else {
+            return res.render("mynodvel", { contents: Contents });
+        }
+    });
+});
+
+router.get("/help", function(req, res) {
+    res. render("manual");
+});
