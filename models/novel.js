@@ -7,7 +7,7 @@ const novel = mongoose.Schema({
     genre: { typr: String, required: true },
     ended: { type: Boolean, default: false },
     contents: [{
-        page: { type: Number, required: true },
+        page: { type: Number },
         img: [{ charactor: { data: Buffer, contentType: String} }],
         backgroundImg: { data: Buffer, contentType: String },
         text: { type: String },
@@ -16,7 +16,12 @@ const novel = mongoose.Schema({
         img: { data: Buffer, contentType: String } 
     }],
     date: { type: Date, default: Date.now },
-    like: { type: Number, default: 0 }
+    like: { type: Number, default: 0 },
+    comment: [{
+        name: String,
+        memo: String,
+        date: { type: Date, default: Date.now }
+    }]
 });
 
 const Novel = mongoose.model("novel", novel);
