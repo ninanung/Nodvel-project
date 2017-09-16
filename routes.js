@@ -111,7 +111,7 @@ router.post("/signup", function (req, res, next) {
     }
 });
 
-router.get("/search", function(req, res){
+router.get("/search", ensureAuthenticated, function(req, res){
     res.render("search");
 });
 
@@ -125,7 +125,7 @@ router.post("/search", function (req, res) {
     });
 });
 
-router.get("/topten", function(req, res, next) {
+router.get("/topten", ensureAuthenticated, function(req, res, next) {
     Novel.find({ ended: true }).sort({ like: -1 }).skip(10).exec(function(err, Contents) {
         if(err) {
             return next(err);
@@ -136,7 +136,7 @@ router.get("/topten", function(req, res, next) {
     });
 });
 
-router.get("/topten/:genre", function(req, res, next) {
+router.get("/topten/:genre", ensureAuthenticated, function(req, res, next) {
     const genre = req.params.genre;
     Novel.find({ ended: true, genre: genre }).sort({ like: -1 }).skip(10).exec(function(err, contents) {
         if(err) {
@@ -148,13 +148,13 @@ router.get("/topten/:genre", function(req, res, next) {
     });
 });
 
-router.get("/like", function(req, res, next) {
+router.get("/like", ensureAuthenticated, function(req, res, next) {
     sess = req.session;
     const mylike = sess.user.like;
     res.render("favorits", { contents: mylike });
 });
 
-router.get("/mynodvel", function(req, res, next) {
+router.get("/mynodvel", ensureAuthenticated, function(req, res, next) {
     sess = req.session;
     const myname = sess.user.username;
     Novel.find({ writer: myname }).sort({ date: -1 }).exec(function(err, Contents) {
@@ -168,5 +168,38 @@ router.get("/mynodvel", function(req, res, next) {
 });
 
 router.get("/help", function(req, res) {
-    res. render("manual");
+    res.render("manual");
+});
+
+router.get("/writenodvel", ensureAuthenticated, function(req, res) {
+    res.render("writenodvel");
+});
+
+router.post("/writenodvel", function(req, res, next) {
+    sess = req.session;
+    const writer = sess.user.username;
+    const title = req.body.title;
+    const genre = req.body.genre;
+    const sotry = req.body.stroey;
+    Novel.findOne({ title: title }, function(err, novel) {
+        if(err) {
+            return next(err);
+        }
+        if(novel) {
+            req.flash("error", "Same title already exist.");
+            return res.redirect("/writenodvel");
+        }
+        const newNodvel = new Novel({
+            writer: writer,
+            title: title,
+            story: story,
+            genre: genre
+        });
+        newNodvel.save(function(err) {
+            if(err) {
+                return next(err);
+            }
+            return res.redirect("/nodvel/" + title);
+        });
+    });
 });
