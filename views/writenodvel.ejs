@@ -1,0 +1,28 @@
+<% include _header %>
+
+<h1>Basic information for new Nodvel</h1>
+<hr>
+<p>Writer : <%= writer %></p>
+<form action="/writenodvel" method="post">
+	<h4>Title</h4>
+	<input name="title" type="taxt" class="form-control" placeholder="Title" required>
+	<br>
+	<h4>Preview of story</h4>
+	<input name="story" type="text" class="form-control" placeholder="Story" required>
+	<br>
+	<h4>Select main genre</h4>
+	<select name="genre" class="selectpicker" required>
+		<option value="romance">Romance</option>
+		<option value="horror">Horror</option>
+		<option value="sf">SF</option>
+		<option value="fantasy">Fantasy</option>
+		<option value="historical">Historical</option>
+		<option value="thriller">Thriller</option>
+		<option value="general">General</option>
+	</select>
+	<br>
+    <input type="submit" value="Next" class="btn btn-default pull-right">
+	<a href="/" class="btn btn-default pull-left">Cancel</a>
+</form>
+
+<% include _footer %>
