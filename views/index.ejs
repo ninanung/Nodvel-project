@@ -1,9 +1,9 @@
-﻿<% include _header %>
+<% include _header %>
 
 <% if (currentUser) { %>
-<h1><%= currentUser.name() %> </h1>
+<h1><%= currentUser.name() %></h1>
 <hr>
-<h2>Find and Watch!</h2>
+<h2>List of Nodvel</h2>
 <table style="table-layout: fixed;" class="table table-striped">
 	<thead>
 	<tr>
@@ -25,8 +25,8 @@
 			<td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><a href="/nodvel/<%= item.title %>"><%= item.title %></a></td>
 			<td><%= item.writer %></td>
 			<td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><%= item.date %></td>
-			<td><%= item.genre</td>
-			<td><%= item.like</td>
+			<td><%= item.genre %></td>
+			<td><%= item.like %></td>
 		</tr>
 		<% }) %>
 	<% } else { %>
@@ -40,7 +40,7 @@
 <div class="text-center">
 	<p style="display: inline;">page :</p>
 	<% for(var i = 1; i <= pagination; i++) { %>
-		<li style="display: inline;"><a href="/<%= i %>" class="next-page"><%= i %></a></li>
+		<li style="display: inline;"><a href="/index/<%= i %>" class="next-page"><%= i %></a></li>
 	<% } %>
 	<a href="/writenodvel" class="btn btn-default" style="float: right;">Writing New Nodvel</a>
 </div>
