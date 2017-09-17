@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>CodeWatch</title>
+    <title>Nodvel</title>
 	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 </head>
@@ -10,15 +10,11 @@
     <div class="navbar navbar-default navbar-static-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/" style="color: crimson;">Nodvel</a>
+                <a class="navbar-brand" href="/" style="font-size: xx-large; color: crimson;">Nodvel</a>
             </div>
             <ul class="nav navbar-nav navbar-right">
                 <% if (currentUser) { %>
-                <li>
-					<a href="/">
-						Hello, <%- currentUser.name() %>
-					</a>
-                </li>
+                <li><a href="/">Hello, <%= currentUser.name() %></a></li>
                 <li><a href="/logout">Log out</a></li>
                 <% } else { %>
                 <li><a href="/login">Log in</a></li>
