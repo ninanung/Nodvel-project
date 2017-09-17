@@ -1,4 +1,4 @@
-﻿<% include _header %>
+<% include _header %>
 
 <h2>Search</h2>
 <div style="height: 600px; width: 1100px; overflow: auto;">
@@ -23,8 +23,8 @@
 					<td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><a href="/nodvel/<%= item.title %>"><%= item.title %></a></td>
 					<td><%= item.writer %></td>
 					<td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><%= item.date %></td>
-					<td><%= item.genre</td>
-					<td><%= item.like</td>
+					<td><%= item.genre %></td>
+					<td><%= item.like %></td>
 				</tr>
 				<% }) %>
 			<% } else { %>
