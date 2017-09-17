@@ -203,3 +203,5 @@ router.post("/writenodvel", function(req, res, next) {
         });
     });
 });
+
+module.exports = router;
