@@ -14,7 +14,7 @@
             </div>
             <ul class="nav navbar-nav navbar-right">
                 <% if (currentUser) { %>
-                <li><a href="/">Hello, <%= currentUser.name() %></a></li>
+                <li><a href="/">Hello, <%= currentUser.username %></a></li>
                 <li><a href="/logout">Log out</a></li>
                 <% } else { %>
                 <li><a href="/login">Log in</a></li>
@@ -23,22 +23,24 @@
             </ul>
         </div>
     </div>
-    <% if(currentUser) { %>
-    <div>
-        <table>
-            <tr>
-                <th style="width: 183px;"><a href="/">Nodvel list</a></th>
-                <th style="width: 183px;"><a href="/topten">Most liked Nodvel</a></th>
-                <th style="width: 183px;"><a href="/search">Search Nodvel</a></th>
-                <th style="width: 183px;"><a href="/like">My favorits</a></th>
-                <th style="width: 183px;"><a href="/mynodvel">My Nodvel</a></th>
-                <th style="width: 183px;"><a href="/help">Manual</a></th>
-            </tr>
-        <table>
-    </div>
     <br>
-    <% } %>
     <div class="container">
+        <% if(currentUser) { %>
+            <div>
+                <table>
+                    <tr>
+                        <th style="width: 183px; text-align: center;"><a href="/">Nodvel list</a></th>
+                        <th style="width: 183px; text-align: center;"><a href="/topten">Most liked Nodvel</a></th>
+                        <th style="width: 183px; text-align: center;"><a href="/search">Search Nodvel</a></th>
+                        <th style="width: 183px; text-align: center;"><a href="/like">My favorits</a></th>
+                        <th style="width: 183px; text-align: center;"><a href="/mynodvel">My Nodvel</a></th>
+                        <th style="width: 183px; text-align: center;"><a href="/help">Manual</a></th>
+                    </tr>
+                <table>
+            </div>
+            <br>
+            <br>
+        <% } %>
         <% errors.forEach(function(error) { %>
         <div class="alert alert-danger" role="alert">
             <%= error %>
