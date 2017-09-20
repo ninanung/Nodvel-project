@@ -4,9 +4,10 @@ const novel = mongoose.Schema({
     title: { type: String, required: true, unique: true },
     writer: { type: String, required: true },
     story: { type: String, required: true },
-    genre: { typr: String, required: true },
+    genre: { type: String, required: true },
     ended: { type: Boolean, default: false },
     contents: [{
+        divergence: { type: Number, default: 1 },
         page: { type: Number },
         img: [{ charactor: { data: Buffer, contentType: String} }],
         backgroundImg: { data: Buffer, contentType: String },
