@@ -41,7 +41,7 @@ router.get("/", function(req, res, next){
     });
 });
 
-router.get("/:page", function(req, res, next){
+router.get("/index/:page", function(req, res, next){
     User.find().sort({ createdAt: "descending" }).exec(function(err, users){
         if(err) { return next(err) }
         let page = req.params.page;
@@ -112,7 +112,7 @@ router.post("/signup", function (req, res, next) {
 });
 
 router.get("/search", ensureAuthenticated, function(req, res){
-    res.render("search");
+    res.render("search", { contents: false });
 });
 
 router.post("/search", function (req, res) {
@@ -131,7 +131,7 @@ router.get("/topten", ensureAuthenticated, function(req, res, next) {
             return next(err);
         }
         else {
-            return res.render("topten", { contents: Contents });
+            return res.render("topten", { contents: Contents, genre: false });
         }
     });
 });
@@ -143,7 +143,7 @@ router.get("/topten/:genre", ensureAuthenticated, function(req, res, next) {
             return next(err);
         }
         else {
-            return res.render("topten", { contents: Contents });
+            return res.render("topten", { contents: contents, genre: genre });
         }
     });
 });
@@ -172,7 +172,9 @@ router.get("/help", function(req, res) {
 });
 
 router.get("/writenodvel", ensureAuthenticated, function(req, res) {
-    res.render("writenodvel");
+    sess = req.session;
+    const writer = sess.user.username;
+    res.render("writenodvel", { writer: writer });
 });
 
 router.post("/writenodvel", function(req, res, next) {
@@ -199,8 +201,99 @@ router.post("/writenodvel", function(req, res, next) {
             if(err) {
                 return next(err);
             }
-            return res.redirect("/nodvel/" + title);
+            return res.redirect("/writenodvel/" + title);
         });
+    });
+});
+
+router.get("/writenodvel/:title", ensureAuthenticated, function(req, res, next) {
+    Novel.findOne({ title: req.params.title }, function(err, nodvel) {
+        if(err) return next(err);
+        if(!nodvel) {
+            req.flash("error", "There's no Nodvel has that title.");
+            return res.redirect("/");
+        }
+        sess = req.session;
+        if(sess.user.username === nodvel.writer) {
+            return res.render("writing");
+        }
+        else {
+            req.flash("info", "Only writer can write or rewrite Nodvel.");
+            return res.redirect("/");
+        }
+    });
+});
+
+router.post("/writenodvel/:title", function(req, res, next) {
+
+});
+
+router.get("/nodvel/:title", ensureAuthenticated, function(req, res, next) {
+    res.render("nodvel");
+});
+
+router.post("/nodvel/:title", function(req, res, next) {
+    Novel.findOne({ title: req.params.title }, function(err, nodvel) {
+        if(err) return next(err);
+        if(!nodvel) return next(err);
+        let like = nodvel.like;
+        sess = req.session;
+        if(req.body.comment) {
+            const writer = sess.user.username;
+            const comment = req.body.comment;
+            nodvel.comment.push({ name: writer, memo: comment });
+            nodvel.save(function(err) {
+                if(err) return next(err);
+                return res.redirect("/nodvel/" + nodvel.title);
+            });
+        }
+        else if(req.body.like) {
+            User.findOne({ username: sess.user.username }, function(err, user) {
+                if(err) return next(err);
+                if(!user) return next(err);
+                for(let i; i <= user.like.length; i++) {
+                    if(user.like[i].title === nodvel.title) {
+                        req.flash("info", "Already like this Nodvel");
+                        return res.redirect("/nodvel/" + nodvel.title);
+                    }
+                    else continue;
+                }
+                like++;
+                nodvel.like = like;
+                nodvel.save(function(err) {
+                    if(err) return next(err);
+                    return console.log("like saved");
+                });
+                user.like.push({ developer: nodvel.writer, title: nodvel.title});
+                user.save(function(err) {
+                    if(err) return next(err);
+                    return res.redirect("/nodvel/" + nodvel.title);
+                });
+            });
+        }
+        else if(req.body.cancellike) {
+            User.findOne({ username: sess.user.username }, function(err, user) {
+                if(err) return next(err);
+                if(!user) return next(err);
+                for(let i; i <= user.like.length; i++) {
+                    if(user.like[i].title === nodvel.title) {
+                        user.like.splice(i, 1);
+                        break;
+                    }
+                    else continue;
+                }
+                like--;
+                nodvel.like = like;
+                nodvel.save(function(err) {
+                    if(err) return next(err);
+                    return console.log("cancelLike saved");
+                });
+                user.save(function(err) {
+                    if(err) return next(err);
+                    return res.redirect("/nodvel/" + nodvel.title);
+                });
+            });
+        }
     });
 });
 
