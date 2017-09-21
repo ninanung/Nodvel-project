@@ -1,0 +1,44 @@
+<% include _header %>
+
+<h2>My Nodvel</h2>
+<div>
+	<table style="table-layout: fixed;" class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="row" style="width: 50px;">Num</th>
+				<th style="width: 450px;">Title</th>
+				<th style="width: 120px;">State</th>
+				<th style="width: 250px;">Date</th>
+				<th>Genre</th>
+				<th>Like</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% if(contents.length > 0) {%>
+				<% var i = 0 %>
+				<% contents.forEach(function(item) { %>
+				<% i++ %>
+				<tr>
+					<th scope="row"><%= i %></th>
+					<td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><a href="/nodvel/<%= item.title %>"><%= item.title %></a></td>
+                    <% if(item.ended) { %>
+                        <td>Finished</td>
+                    <% } else { %>
+                        <td>Proceeding</td>
+                    <% } %>
+					<td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><%= item.date %></td>
+					<td><%= item.genre %></td>
+					<td><%= item.like %></td>
+				</tr>
+				<% }) %>
+			<% } else { %>
+				<tr>
+					<td colspan="6">No contents</td>
+				</tr>
+			<% } %>
+		</tbody>
+	</table>
+</div>
+<br>
+
+<% include _footer %>
