@@ -1,19 +1,19 @@
 <% include _header %>
 
 <h2>Search</h2>
-<div style="height: 600px; width: 1100px; overflow: auto;">
-	<table style="table-layout: fixed;" class="table table-striped">
-		<thead>
-			<tr>
-				<th scope="row" style="width: 50px;">Num</th>
-				<th style="width: 450px;">Title</th>
-				<th style="width: 100px;">Writer</th>
-				<th style="width: 250px;">Date</th>
-				<th>Genre</th>
-				<th>Like</th>
-			</tr>
-		</thead>
-		<tbody>
+<table style="table-layout: fixed; height: 600px; width: 1100px; overflow: auto;" class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="row" style="width: 50px;">Num</th>
+			<th style="width: 450px;">Title</th>
+			<th style="width: 100px;">Writer</th>
+			<th style="width: 250px;">Date</th>
+			<th>Genre</th>
+			<th>Like</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% if(contents) { %> 
 			<% if(contents.length > 0) {%>
 				<% var i = 0 %>
 				<% contents.forEach(function(item) { %>
@@ -32,9 +32,13 @@
 					<td colspan="6">No contents</td>
 				</tr>
 			<% } %>
-			</tbody>
-	</table>
-</div>
+		<% } else { %>
+			<tr>
+				<td colspan="6">No contents</td>
+			</tr>
+		<% } %>
+	</tbody>
+</table>
 <br>
 <hr>
 <form action="/search" method="post">
