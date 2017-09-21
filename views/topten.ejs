@@ -1,7 +1,10 @@
 <% include _header %>
 
 <h2>Most liked Nodvel</h2>
-<div style="height: 600px; width: 1100px; overflow: auto;">
+<% if(genre) { %>
+	<h3><%= genre %> story</h3>
+<% } %>
+<div>
 	<table style="table-layout: fixed;" class="table table-striped">
 		<thead>
 			<tr>
@@ -32,7 +35,7 @@
 					<td colspan="6">No contents</td>
 				</tr>
 			<% } %>
-			</tbody>
+		</tbody>
 	</table>
 </div>
 <br>
@@ -40,13 +43,13 @@
 <div>
     <table>
         <tr>
-            <th><a href="/topten/romance">Romance</a></th>
-            <th><a href="/topten/horror">Horror</a></th>
-            <th><a href="/topten/fantasy">Fantasy</a></th>
-            <th><a href="/topten/sf">SF</a></th>
-            <th><a href="/topten/thriller">Thriller</a></th>
-	    <th><a href="/topten/historical">Historical</a></th>
-	    <th><a href="/topten/general">General</a></th>
+            <th style="width: 154px; text-align: center;"><a style="color: crimson;" href="/topten/Romance">Romance</a></th>
+            <th style="width: 154px; text-align: center;"><a style="color: crimson;" href="/topten/Horror">Horror</a></th>
+            <th style="width: 154px; text-align: center;"><a style="color: crimson;" href="/topten/Fantasy">Fantasy</a></th>
+            <th style="width: 154px; text-align: center;"><a style="color: crimson;" href="/topten/SF">SF</a></th>
+            <th style="width: 154px; text-align: center;"><a style="color: crimson;" href="/topten/Thriller">Thriller</a></th>
+	    <th style="width: 154px; text-align: center;"><a style="color: crimson;" href="/topten/Historical">Historical</a></th>
+	    <th style="width: 154px; text-align: center;"><a style="color: crimson;" href="/topten/General">General</a></th>
         </tr>
     </table>
 </div>
