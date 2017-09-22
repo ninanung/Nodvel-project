@@ -6,6 +6,7 @@ const session = require("express-session");
 const path = require("path");
 const passport = require("passport");
 const cookieParser = require("cookie-parser");
+const fs = require("fs");
 
 const setUpPassport = require("./setuppassport");
 const routes = require("./routes");
