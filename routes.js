@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
+const fs = require("fs");
 const User = require("./models/user");
 const Novel = require("./models/novel");
 
@@ -171,6 +172,26 @@ router.get("/help", function(req, res) {
     res.render("manual");
 });
 
+//retouch
+router.get("/writenodvel/retouch/:title", function(req, res) {
+    sess = req.session
+    const writer = sess.user.username;
+    res.render("writenodvel", { writer: writer, title: req.params.title });
+});
+
+router.post("/writenodvel/retouch/:title", function(req, res, next) {
+    Novel.findOne({ title: req.params.title }, function(err, nodvel) {
+        const title = req.body.title;
+        nodvel.title = title;
+        nodvel.genre = req.body.genre;
+        nodvel.story = req.body.story;
+        nodvel.save(function(err) {
+            if(err) return next(err);
+            return res.redirect("/nodvel/" + title);
+        })
+    });
+});
+
 router.get("/writenodvel", ensureAuthenticated, function(req, res) {
     sess = req.session;
     const writer = sess.user.username;
@@ -182,7 +203,7 @@ router.post("/writenodvel", function(req, res, next) {
     const writer = sess.user.username;
     const title = req.body.title;
     const genre = req.body.genre;
-    const sotry = req.body.stroey;
+    const story = req.body.stroy;
     Novel.findOne({ title: title }, function(err, novel) {
         if(err) {
             return next(err);
@@ -206,6 +227,7 @@ router.post("/writenodvel", function(req, res, next) {
     });
 });
 
+//writing
 router.get("/writenodvel/:title", ensureAuthenticated, function(req, res, next) {
     Novel.findOne({ title: req.params.title }, function(err, nodvel) {
         if(err) return next(err);
@@ -229,7 +251,11 @@ router.post("/writenodvel/:title", function(req, res, next) {
 });
 
 router.get("/nodvel/:title", ensureAuthenticated, function(req, res, next) {
-    res.render("nodvel");
+    Novel.findOne({ title: req.params.title }, function(err, nodvel) {
+        if(err) return next(err);
+        if(!nodvel) return next(err);
+        return  res.render("nodvel", { contents: nodvel });
+    });
 });
 
 router.post("/nodvel/:title", function(req, res, next) {
