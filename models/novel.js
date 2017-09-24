@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+//want to make preview img
 const novel = mongoose.Schema({
     title: { type: String, required: true, unique: true },
     writer: { type: String, required: true },
@@ -13,8 +14,9 @@ const novel = mongoose.Schema({
         prevPage: { type: Number },
         divergence: { type: Number, default: 1 },
         page: { type: Number },
-        img: [{ charactor: { data: Buffer, contentType: String} }],
-        backgroundImg: { data: Buffer, contentType: String },
+        memo: String,
+        img: [{ charactor: { type: String} }],
+        backgroundImg: { type: String },
         text: { type: String },
     }],
     date: { type: Date, default: Date.now },
