@@ -8,16 +8,24 @@ const novel = mongoose.Schema({
     genre: { type: String, required: true },
     ended: { type: Boolean, default: false },
     contents: [{
-        nextDivergence: { type: Number },
-        nextPage: { type: Number },
-        prevDivergence: { type: Number },
-        prevPage: { type: Number },
+        nextDivergence: Number,
+        nextPage: Number,
         divergence: { type: Number, default: 1 },
-        page: { type: Number },
+        page: Number,
         memo: String,
-        img: [{ charactor: { type: String} }],
-        backgroundImg: { type: String },
-        text: { type: String },
+        character1: String,
+        character2: String,
+        character3: String,
+        character4: String,
+        characterNumber: Number,
+        background: String,
+        text: String,
+    }],
+    characterImgs: [{
+        img: String
+    }],
+    backgroundImgs: [{
+        img: String
     }],
     date: { type: Date, default: Date.now },
     like: { type: Number, default: 0 },
