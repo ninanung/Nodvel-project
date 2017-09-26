@@ -22,10 +22,12 @@ const novel = mongoose.Schema({
         text: String,
     }],
     characterImgs: [{
-        img: String
+        path: String,
+        name: String
     }],
     backgroundImgs: [{
-        img: String
+        path: String,
+        name: String
     }],
     date: { type: Date, default: Date.now },
     like: { type: Number, default: 0 },
