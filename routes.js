@@ -292,7 +292,6 @@ router.get("/writenodvel/:title/:divergence/:page", ensureAuthenticated, functio
                 }
             }
             return res.render("writing", { contents: nodvel, divergence: req.params.divergence, page: req.params.page });
-            
         }
         else {
             req.flash("info", "Only writer can write or rewrite Nodvel.");
@@ -322,10 +321,10 @@ router.post("/writenodvel/:title/:divergence/:page", function(req, res, next) {
                 return res.redirect("/writenodvel/" + req.params.title + "/" + divergence + "/" + page);   
             }
         }
-        if(character1) characterNumber++;
-        if(character2) characterNumber++;
-        if(character3) characterNumber++;
-        if(character4) characterNumber++;
+        if(character1 !== "none") character1 = ""; characterNumber++; 
+        if(character2 !== "none") character2 = ""; characterNumber++;
+        if(character3 !== "none") character3 = ""; characterNumber++;
+        if(character4 !== "none") character4 = ""; characterNumber++;
         nodvel.contents.push({
             divergence: divergence,
             page: page,
@@ -399,10 +398,10 @@ router.post("/writenodvel/rewrite/:title/:divergence/:page", function(req, res, 
                 nodvel.contents[i].page = page;
                 nodvel.contents[i].nextDivergence = nextDivergence;
                 nodvel.contents[i].nextPage = nextPage;
-                if(character1) characterNumber++;
-                if(character2) characterNumber++;
-                if(character3) characterNumber++;
-                if(character4) characterNumber++;
+                if(character1 !== "none") character1 = ""; characterNumber++; 
+                if(character2 !== "none") character2 = ""; characterNumber++;
+                if(character3 !== "none") character3 = ""; characterNumber++;
+                if(character4 !== "none") character4 = ""; characterNumber++;
                 nodvel.contents[i].character1 = character1;
                 nodvel.contents[i].character2 = character2;
                 nodvel.contents[i].character3 = character3;
@@ -418,6 +417,13 @@ router.post("/writenodvel/rewrite/:title/:divergence/:page", function(req, res, 
         req.flash("error", "There's no contents in that divergence and page.");
         return res.redirect("/writenodvel/" + req.params.title + "/" + divergence + "/" + page);
     });
+});
+
+router.post("writing/move/:divergence/:page", function(req, res, next) {
+    const divergence = req.body.moveDivergence;
+    const page = req.body.movePage;
+    const title = req.body.moveTitle;
+    return res.redirect("/writenodvel/" + title + "/" + divergence + "/" + page);
 });
 
 router.get("/nodvel/:title", ensureAuthenticated, function(req, res, next) {
