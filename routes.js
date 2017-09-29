@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const fs = require("fs");
+
 const multer = require("multer");
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
@@ -19,6 +20,7 @@ const storage = multer.diskStorage({
     }
 });
 var upload = multer({ storage: storage });
+
 const User = require("./models/user");
 const Novel = require("./models/novel");
 
@@ -405,6 +407,37 @@ router.post("/writenodvel/:title/:divergence/:page", function(req, res, next) {
     });
 });
 
+//write search
+router.get("/writenodvel/search/:title", ensureAuthenticated, function(req, res, next) {
+    Novel.findOne({ title: req.params.title }, function(err, nodvel) {
+        if(err) return next(err);
+        if(!nodvel) {
+            req.flash("error", "There's no Nodvel.");
+            return res.redirect("/");
+        }
+        return res.render("nodvelsearch", { contents: nodvel, pagecontents: nodvel.contents, title: req.params.title });
+    });
+});
+
+router.post("/writenodvel/search/:title", function(req, res, next) {
+    Novel.findOne({ title: req.params.title }, function(err, nodvel) {
+        if(err) return next(err);
+        if(!nodvel) {
+            req.flash("error", "There's no Nodvel.");
+            return res.redirect("/");
+        }
+        let contents = []; 
+        nodvel.contents.forEach(function(item) {
+            if(item.text || item.memo) {
+                if(item.text.search(req.body.searchWord) || item.memo.search(req.body.searchWord)) {
+                    contents.push(item);
+                }
+            }
+        });
+        return res.render("nodvelsearch", { contents: nodvel, pagecontents: contents, title: req.params.title });
+    });
+});
+
 //rewrite
 router.get("/writenodvel/rewrite/:title/:divergence/:page", ensureAuthenticated, function(req, res, next) {
     Novel.findOne({ title: req.params.title }, function(err, nodvel) {
@@ -531,10 +564,11 @@ router.post("/writenodvel/rewrite/:title/:divergence/:page", function(req, res, 
     });
 });
 
-router.post("writing/move/:divergence/:page", function(req, res, next) {
+//movepage
+router.post("writenodvel/move/:title", function(req, res, next) {
     const divergence = req.body.moveDivergence;
     const page = req.body.movePage;
-    const title = req.body.moveTitle;
+    const title = req.params.title;
     return res.redirect("/writenodvel/" + title + "/" + divergence + "/" + page);
 });
 
