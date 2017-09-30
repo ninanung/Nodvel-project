@@ -1,0 +1,38 @@
+<% include _header %>
+
+<h2>Upload character image</h2>
+<form action="/writenodvel/upload/<%= contents.title %>" method="post" enctype="multipart/form-data">
+    <select name="character" style="display: none;">
+        <option value="character" selected>character</option>
+    </select>
+    <input type="file" class="filestyle" style="float: left;" required>
+    <input type="submit" class="btn btn-default" style="float: left;">
+</form>
+<br>
+<h3>Uploaded character</h3>
+<ul>
+<% contents.characterImgs.forEach(function(item) { %>
+    <li><%= item.name %></li>
+<% }) %>
+</ul>
+<br>
+<hr>
+<h2>Upload background image</h2>
+<form action="/writenodvel/upload/<%= contents.title %>" method="post" enctype="multipart/form-data">
+    <select name="background" style="display: none;">
+        <option value="background" selected>background</option>
+    </select>
+    <input type="file" class="filestyle" style="float: left;" required>
+    <input type="submit" class="btn btn-default" style="float: left;">
+</form>
+<br>
+<h3>Uploaded background</h3>
+<ul>
+<% contents.backgroundImgs.forEach(function(item) { %>
+    <li><%= item.name %></li>
+<% }) %>
+</ul>
+<br>
+<a href="/writenodvel/<%= contents.title %>/1/1" class="btn btn-default">Go to write</a>
+
+<% include _footer %>
