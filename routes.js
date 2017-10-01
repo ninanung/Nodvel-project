@@ -292,7 +292,7 @@ router.get("/writenodvel/:title/:divergence/:page", ensureAuthenticated, functio
         if(sess.user.username === nodvel.writer) {
             for(let i = 0; i < nodvel.contents.length; i++) {
                 if(nodvel.contents[i].divergence === req.params.divergence && nodvel.contents[i].page === req.params.page) {
-                    return res.render("writed", { contents: nodvel, pagecontents: nodvel.contents[i], divergence: nodvel.contents[i].divergence, page: nodvel.contents[i].page });
+                    return res.render("writed", { contents: nodvel, pagecontents: nodvel.contents[i] });
                 }
             }
             return res.render("writing", { contents: nodvel, divergence: req.params.divergence, page: req.params.page });
