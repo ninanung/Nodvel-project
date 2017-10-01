@@ -1,8 +1,55 @@
 <% include _header %>
 
 <h1><%= contents.title %></h1>
-<h2>divergence: <%= divergence %></h2>
-<h2>page: <%= page %></h2>
+<h2>Divergence: <%= pagecontents.divergence %></h2>
+<h2>Page: <%= pagecontents.page %></h2>
+<h2>Next divergence: <%= pagecontents.nextDivergence %></h2>
+<h2>Next page: <%= pagecontents.nextPage %></h2>
+<a href="/writenodvel/<%= contents.title %>/<%= pagecontents.nextDivegence %>/<%= pagecontents.nextPage %>" class="btn btn-default">Go to next scene</a>
 <hr>
+<h2>Text</h2>
+<hr>
+<% if(pagecontents.text) { %>
+    <a><%= pagecontents.text %></a>
+    <hr>
+<% } else { %>
+    <a>No text in this scene</a>
+    <hr>
+<% } %>
+<h2>Choice</h2>
+<hr>
+<% if(pagecontents.choice.length > 0) { %>
+    <% pagecontents.character.forEach(function(item) { %>
+        <a>item.text</a>
+        <a>Next divergence: <%= item.nextDivergence %></a>
+        <a>Next page: <%= item.nextPage %></a>
+        <hr>
+    <% }) %>
+<% } else { %>
+    <a>No choice in this scene</a>
+    <hr>
+<% } %>
+<h2>Characters</h2>
+<hr>
+<% if(pagecontents.character.length > 0) { %>
+    <% pagecontents.character.forEach(function(item) { %>
+        <img src="<%= path %>" width="500px" height="auto"/>
+    <% }) %>
+    <hr>
+<% } else { %>
+    <a>No character in this scene</a>
+    <hr>
+<% } %>
+<h2>Background</h2>
+<hr>
+<% if(pagecontents.background) { %>
+    <img src="<%= pagecontents.background %>" width="900px" height="auto"/>
+    <hr>
+<% } else { %>
+    <a>No background in this scene</a>
+    <hr>
+<% } %>
+
+<% include _move %>
 
 <% include _footer %>
