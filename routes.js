@@ -325,7 +325,7 @@ router.post("/writenodvel/:title/:divergence/:page", function(req, res, next) {
                 }
             }
         }
-        else const background = req.body.background;
+        else const background = "";
         nodvel.contents.push({
             divergence: divergence,
             page: page,
@@ -484,7 +484,7 @@ router.post("/writenodvel/rewrite/:title/:divergence/:page", function(req, res, 
                 }
             }
         }
-        else const background = req.body.background;
+        else const background = "";
         for(let i = 0; i <= nodvel.contents.length; i++) {
             if(nodvel.contents[i].divergence === divergence && nodvel.contents[i].page === page) {
                 nodvel.contents[i].test = text;
