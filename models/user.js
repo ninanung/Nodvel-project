@@ -10,6 +10,12 @@ const userSchema = mongoose.Schema({
         developer: String,
         title: String,
         date: { type: Date, default: Date.now }  
+    }],
+    save: [{
+        title: String,
+        divergence: String,
+        page: String,
+        date: { type: Date, default: Date.now }
     }]
 });
 
@@ -20,7 +26,7 @@ userSchema.pre("save", function(done) {
     if(!user.isModified("password")) {
         return done();
     }
-    bcrypt.genSalt(SALT_FACTORm, function(err, salt) {
+    bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
         if(err) {
             return done(err)
         }
