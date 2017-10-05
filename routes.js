@@ -646,4 +646,12 @@ router.post("/nodvel/:title", function(req, res, next) {
     });
 });
 
+//save
+router.post("/save/:title/:divergence/:page", function(req, res, next) {
+    sess = req.sesion;
+    User.findOne({ username: sess.user.username }, function(err, user) {
+        
+    });
+});
+
 module.exports = router;
