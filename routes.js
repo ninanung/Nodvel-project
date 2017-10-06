@@ -646,11 +646,32 @@ router.post("/nodvel/:title", function(req, res, next) {
     });
 });
 
+//view page
+router.get("/nodvel/:title/:divergence/:page", ensureAuthenticated, function(req, res, next) {
+    Novel.findOne({ title: req.params.title }, function(err, nodvel) {
+        nodvel.contents.forEach(function(item) {
+            if(item.page === req.params.page && item.divergence === req.params.divergence) {
+                return res.render("nodvel", { pagecontents: item, title: req.params.title });
+            }
+        });
+        req.flash("error", "There's no scene in " + req.params.divergence + ", " + req.params.page);
+        return res.redirect("/nodvel/" + req.params.title);
+    });
+});
+
 //save
-router.post("/save/:title/:divergence/:page", function(req, res, next) {
+router.post("/nodvel/save/:title/:divergence/:page", function(req, res, next) {
     sess = req.sesion;
     User.findOne({ username: sess.user.username }, function(err, user) {
-        
+        user.push({
+            title: req.params.title,
+            divergence: req.params.divergence,
+            page: req.params.page
+        });
+        user.save(function(err) {
+            if(err) return next(err);
+            return res.redirect("/nodvel/" + req.params.title + "/" + req.params.divergence + "/" + req.params.page);
+        });
     });
 });
 
