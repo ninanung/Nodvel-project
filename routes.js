@@ -646,6 +646,36 @@ router.post("/nodvel/:title", function(req, res, next) {
     });
 });
 
+//view saved
+router.get("/saved", ensureAuthenticated, function(req, res, next) {
+    sess = req.session;
+    User.findOne({ username: sess.user.username }, function(err, user) {
+        if(err) return next(err);
+        if(!user) return next(err);
+        res.render("save", { contents: user.save });
+    });
+});
+
+router.get("/saved/delete/:title/:divergence/:page", ensureAuthenticated, function(req, res, next) {
+    sess = req.session;
+    User.findOne({ username: sess.user.username }, function(err, user) {
+        if(err) return next(err);
+        if(!user) return next(err);
+        for(let i = 0; i < user.save.length; i++) {
+            if(user.save[i].title === req.params.title && user.save[i].divergence === req.params.divergence && user.save[i].page === req.params.page) {
+                user.save.splice(i, 1);
+                user.save(function(err) {
+                    if(err) return next(err);
+                    req.flash("info", "Save point deleted.");
+                    return res.redirect("/saved"); 
+                });
+            }
+        }
+        req.flash("error", "Unknown error exist. Deleteing stopped.");
+        return res.redirect("/saved");
+    });
+});
+
 //view page
 router.get("/nodvel/:title/:divergence/:page", ensureAuthenticated, function(req, res, next) {
     Novel.findOne({ title: req.params.title }, function(err, nodvel) {
