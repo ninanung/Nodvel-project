@@ -1,5 +1,44 @@
-<% include _footer %>
-
-<h1>My saving list</h1>
-
 <% include _header %>
+
+<h2>My save point</h2>
+<br>
+<h3>Point of Nodvel title, divergence and page that you saved.</h3>
+<hr>
+<br>
+<div>
+	<table style="table-layout: fixed;" class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="row" style="width: 50px;">Num</th>
+				<th style="width: 630px;">Title</th>
+				<th style="width: 250px;">Date</th>
+				<th scope="row" style="width: 100px;">Divergence</th>
+                <th scope="row" style="width: 50px;">page</th>
+                <th style="width: 100px;">Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% if(contents.length > 0) {%>
+				<% var i = 0 %>
+				<% contents.forEach(function(item) { %>
+				<% i++ %>
+				<tr>
+					<th scope="row"><%= i %></th>
+					<td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><a href="/nodvel/<%= item.title %>/<%= item.divergence %>/<%= item.page %>"><%= item.title %></a></td>
+					<td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><%= item.date %></td>
+					<td><%= item.divergence %></td>
+                    <td><%= item.page %></td>
+                    <td><a href="/saved/delete/<%= item.title %>/<%= item.divergence %>/<%= item.page %>">delete</a></td>
+				</tr>
+				<% }) %>
+			<% } else { %>
+				<tr>
+					<td colspan="6">No contents</td>
+				</tr>
+			<% } %>
+		</tbody>
+	</table>
+</div>
+<br>
+
+<% include _footer %>
