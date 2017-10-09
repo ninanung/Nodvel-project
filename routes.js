@@ -191,26 +191,6 @@ router.get("/help", function(req, res) {
     return res.render("manual");
 });
 
-//retouch
-router.get("/writenodvel/retouch/:title", function(req, res) {
-    sess = req.session
-    const writer = sess.user.username;
-    return res.render("writenodvel", { writer: writer, title: req.params.title });
-});
-
-router.post("/writenodvel/retouch/:title", function(req, res, next) {
-    Novel.findOne({ title: req.params.title }, function(err, nodvel) {
-        const title = req.body.title;
-        nodvel.title = title;
-        nodvel.genre = req.body.genre;
-        nodvel.story = req.body.story;
-        nodvel.save(function(err) {
-            if(err) return next(err);
-            return res.redirect("/nodvel/" + title);
-        })
-    });
-});
-
 //standard info
 router.get("/writenodvel", ensureAuthenticated, function(req, res) {
     sess = req.session;
@@ -244,6 +224,38 @@ router.post("/writenodvel", function(req, res, next) {
             }
             return res.redirect("/writenodvel/upload/" + title);
         });
+    });
+});
+
+//rewrite simpleinfo
+router.get("/writenodvel/rewrite/:title", ensureAuthenticated, function(req, res, next) {
+    Novel.findOne({ title: req.params.title }, function(err, nodvel) {
+        if(err) return next(err);
+        if(!nodvel) return next(err);
+        sess = req.session;
+        if(nodvel.ended) {
+            req.flash("error", "Nodvel is ended. You can't change this.")
+            return res.redirect("/nodvel/" + req.params.title);
+        }
+        if(sess.user.username === nodvel.writer) {
+            req.flash("info", "Only writer can write or rewrite Nodvel.");
+            return res.redirect("/");
+        }
+        res.render("writenodvel", { contents: nodvel });
+    });
+});
+
+router.post("/writenodvel/rewrite/:title", function(req, res, next) {
+    Novel.findOne({ title: req.params.title }, function(err, nodvel) {
+        const title = req.body.title;
+        nodvel.title = title;
+        nodvel.genre = req.body.genre;
+        nodvel.story = req.body.story;
+        nodvel.save(function(err) {
+            if(err) return next(err);
+            req.flash("info", "Simple info saved.");
+            return res.redirect("/nodvel/" + title);
+        })
     });
 });
 
@@ -574,10 +586,20 @@ router.post("writenodvel/move/:title", function(req, res, next) {
 
 //show nodvel
 router.get("/nodvel/:title", ensureAuthenticated, function(req, res, next) {
+    sess = req.session;
     Novel.findOne({ title: req.params.title }, function(err, nodvel) {
         if(err) return next(err);
         if(!nodvel) return next(err);
-        return  res.render("nodvel", { contents: nodvel });
+        if(!nodvel.ended) {
+            if(sess.user.username === nodvel.writer) {
+                return res.render("nodvel", { contents: nodvel });
+            }
+            else {
+                req.flash("info", "Nodvel does not ended or rewrited now.");
+                return res.redirect("/");
+            }
+        }
+        return res.render("nodvel", { contents: nodvel, user: sess.user });
     });
 });
 
@@ -643,6 +665,7 @@ router.post("/nodvel/:title", function(req, res, next) {
                 });
             });
         }
+        //make ended false needed
     });
 });
 
@@ -704,5 +727,7 @@ router.post("/nodvel/save/:title/:divergence/:page", function(req, res, next) {
         });
     });
 });
+
+//saving rewrite part
 
 module.exports = router;
