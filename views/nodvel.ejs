@@ -2,5 +2,37 @@
 
 <h1><%= contents.title %></h1>
 <hr>
+<h3>writed by <%= contents.writer %></h3>
+<h3>genre is <%= contents.genre %></h3>
+<h3>preview of story</h3>
+<div style="white-space: pre; width: 400px; height: 40px;"><%= contents.story %></div>
+<hr>
+<% if(nodvel.ended) { %> 
+<% if(user.like.length > 0) { %>
+    <% let conut = 0 %>
+    <% for(let i = 0; i < user.like.length; i++) { %>
+        <% if(user.like[i].title === contents.title) { %>
+            <form action="/nodvel/<%= nodvel.title %>" method="post">
+                <select name="cancellike" style="display: none;">
+                    <option value="cancellike" selected>cancellike</option>
+                </select>
+                <input type="submit" class="btn btn-default" style="float: right;" value="Cancel like">
+            </form>
+            <% count = 1 %> 
+            <% break %>
+        <% } %>
+    <% } %>    
+    <% if(count === 0) { %>
+    <form action="/nodvel/<%= nodvel.title %>" method="post">
+        <select name="like" style="display: none;">
+            <option value="like" selected>like</option>
+        </select>
+        <input type="submit" class="btn btn-default" style="float: right;" value="Give like">
+    </form>
+    <% } %>
+<% } %>
+<% } else { %>
+
+<% } %>
 
 <% include _footer %>
