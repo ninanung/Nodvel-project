@@ -380,28 +380,28 @@ router.post("/writenodvel/:title/:divergence/:page", function(req, res, next) {
                 if(req.body.character1 !== "none") {
                     for(let i = 0; i < nodvel.characterImgs.length; i++) {
                         if(req.body.character1 === nodvel.characterImgs[i].name) {
-                            nodvel.contents[i].character.push({ path: nodvel.characterImgs[i].path });
+                            nodvel.contents[i].character.push({ path: nodvel.characterImgs[i].path, name: nodvel.characterImgs[i].name });
                         }
                     }
                 }  
                 if(req.body.character2 !== "none") {
                     for(let i = 0; i < nodvel.characterImgs.length; i++) {
                         if(req.body.character2 === nodvel.characterImgs[i].name) {
-                            nodvel.contents[i].character.push({ path: nodvel.characterImgs[i].path });
+                            nodvel.contents[i].character.push({ path: nodvel.characterImgs[i].path, name: nodvel.characterImgs[i].name });
                         }
                     }
                 }  
                 if(req.body.character3 !== "none") {
                     for(let i = 0; i < nodvel.characterImgs.length; i++) {
                         if(req.body.character3 === nodvel.characterImgs[i].name) {
-                            nodvel.contents[i].character.push({ path: nodvel.characterImgs[i].path });
+                            nodvel.contents[i].character.push({ path: nodvel.characterImgs[i].path, name: nodvel.characterImgs[i].name });
                         }
                     }
                 }  
                 if(req.body.character4 !== "none") {
                     for(let i = 0; i < nodvel.characterImgs.length; i++) {
-                        if(req.body.character3 === nodvel.characterImgs[i].name) {
-                            nodvel.contents[i].character.push({ path: nodvel.characterImgs[i].path });
+                        if(req.body.character4 === nodvel.characterImgs[i].name) {
+                            nodvel.contents[i].character.push({ path: nodvel.characterImgs[i].path, name: nodvel.characterImgs[i].name  });
                         }
                     }
                 }  
@@ -467,7 +467,6 @@ router.get("/writenodvel/rewrite/:title/:divergence/:page", ensureAuthenticated,
             }
             req.flash("error", "There's no contents in that divergence and page.");
             return res.render("writing", { contents: nodvel, divergence: req.params.divergence, page: req.params.page });
-            
         }
         else {
             req.flash("info", "Only writer can write or rewrite Nodvel.");
@@ -539,28 +538,28 @@ router.post("/writenodvel/rewrite/:title/:divergence/:page", function(req, res, 
                 if(req.body.character1 !== "none") {
                     for(let i = 0; i < nodvel.characterImgs.length; i++) {
                         if(req.body.character1 === nodvel.characterImgs[i].name) {
-                            nodvel.contents[i].character.push({ path: nodvel.characterImgs[i].path });
+                            nodvel.contents[i].character.push({ path: nodvel.characterImgs[i].path, name: nodvel.characterImgs[i].name });
                         }
                     }
                 }  
                 if(req.body.character2 !== "none") {
                     for(let i = 0; i < nodvel.characterImgs.length; i++) {
                         if(req.body.character2 === nodvel.characterImgs[i].name) {
-                            nodvel.contents[i].character.push({ path: nodvel.characterImgs[i].path });
+                            nodvel.contents[i].character.push({ path: nodvel.characterImgs[i].path, name: nodvel.characterImgs[i].name });
                         }
                     }
                 }  
                 if(req.body.character3 !== "none") {
                     for(let i = 0; i < nodvel.characterImgs.length; i++) {
                         if(req.body.character3 === nodvel.characterImgs[i].name) {
-                            nodvel.contents[i].character.push({ path: nodvel.characterImgs[i].path });
+                            nodvel.contents[i].character.push({ path: nodvel.characterImgs[i].path, name: nodvel.characterImgs[i].name });
                         }
                     }
                 }  
                 if(req.body.character4 !== "none") {
                     for(let i = 0; i < nodvel.characterImgs.length; i++) {
-                        if(req.body.character3 === nodvel.characterImgs[i].name) {
-                            nodvel.contents[i].character.push({ path: nodvel.characterImgs[i].path });
+                        if(req.body.character4 === nodvel.characterImgs[i].name) {
+                            nodvel.contents[i].character.push({ path: nodvel.characterImgs[i].path, name: nodvel.characterImgs[i].name });
                         }
                     }
                 }  
@@ -702,6 +701,12 @@ router.get("/saved/delete/:title/:divergence/:page", ensureAuthenticated, functi
 //view page
 router.get("/nodvel/:title/:divergence/:page", ensureAuthenticated, function(req, res, next) {
     Novel.findOne({ title: req.params.title }, function(err, nodvel) {
+        if(err) return next(err);
+        if(!nodvel) return next(err);
+        if(!nodvel.ended) {
+            req.flash("info", "Writer writing this Nodvel now. Please wait until finish.");
+            res.redirect("/");
+        }
         nodvel.contents.forEach(function(item) {
             if(item.page === req.params.page && item.divergence === req.params.divergence) {
                 return res.render("nodvel", { pagecontents: item, title: req.params.title });
@@ -729,5 +734,6 @@ router.post("/nodvel/save/:title/:divergence/:page", function(req, res, next) {
 });
 
 //saving rewrite part
+//i want to make redirect to /writenodvel/:title after upload
 
 module.exports = router;
