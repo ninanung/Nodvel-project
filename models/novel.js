@@ -13,7 +13,10 @@ const novel = mongoose.Schema({
         divergence: { type: Number, default: 1 },
         page: Number,
         memo: String,
-        character: [{ path: String }],
+        character: [{ 
+            path: String,
+            name: String
+        }],
         background: String,
         text: String,
         choice: [{ text: String, nextDivergence: Number, nextPage: Number }]
