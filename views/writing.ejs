@@ -1,8 +1,112 @@
 <% include _header %>
 
 <h1><%= contents.title %></h1>
-<h2>divergence: <%= divergence %></h2>
-<h2>page: <%= page %></h2>
+<br>
 <hr>
+<br>
+<form method="post" action="/writenodvel/">
+    <h3>Paging part</h3>
+    <p>Paging part is must be fullfilled.</p>
+    <br>
+    <% if(pagecontents) { %> 
+        <label>Divergence: <input type="text" class="form-control" name="divergence" value="<%= pagecontents.divergence %>" required></label>
+        <label>Page: <input type="text" class="form-control" name="page" value="<%= pagecontents.page %>" required></label>
+        <label>Next Divergence: <input type="text" class="form-control" name="nextDivergence" value="<%= pagecontents.nextDivergence %>" required></label>
+        <label>Next Page: <input type="text" class="form-control" name="nextPage" value="<%= pagecontents.nextPage %>" required></label>
+    <% } else { %>
+        <label>Divergence: <input type="text" class="form-control" name="divergence" required></label>
+        <label>Page: <input type="text" class="form-control" name="page" required></label>
+        <label>Next Divergence: <input type="text" class="form-control" name="nextDivergence" required></label>
+        <label>Next Page: <input type="text" class="form-control" name="nextPage" required></label>
+    <% } %>
+    <hr>
+    <br>
+    <h2>Text part</h2>
+    <p>Text part is not a necessary for writing. But if you need, should type it up.</p>
+    <br>
+    <h3>Text</h3>
+    <% if(pagecontents && pagecontents.text) { %> 
+        <input type="text" class="form-control" style="width: 1100px; height: 100px;" name="text" value="<%= pagecontents.text %>"></input>
+    <% } else { %>
+        <input type="text" class="form-control" style="width: 1100px; height: 100px;" name="text" placeholder="Mind the name of character!"></input> 
+    <% } %>
+    <br>
+    <h3>Choice</h3>
+    <% if(pagecontents && pagecontents.choice.length > 0) { %> 
+        <% for(let i = 0; i < 4; i++) { %>
+            <% if(pagecontents.choice[i]) { %> 
+                <label>Choice <%= (i + 1) %>: <input type="text" class="form-control" style="width: 1100px; height: 100px;" name="choice<%= (i + 1) %>text" value="<%= pagecontents.choice[i] %>"></label>
+            <% } else { %>
+                <label>Choice <%= (i + 1) %>: <input type="text" class="form-control" style="width: 1100px; height: 100px;" name="choice<%= (i + 1) %>text" placeholder="Choice"></label>
+            <% } %>
+        <% } %>
+    <% } else { %>
+        <label>Choice 1: <input type="text" class="form-control" style="width: 1100px; height: 100px;" name="choice1text" placeholder="Choice"></label>
+        <label>Choice 2: <input type="text" class="form-control" style="width: 1100px; height: 100px;" name="choice2text" placeholder="Choice"></label>
+        <label>Choice 3: <input type="text" class="form-control" style="width: 1100px; height: 100px;" name="choice3text" placeholder="Choice"></label>
+        <label>Choice 4: <input type="text" class="form-control" style="width: 1100px; height: 100px;" name="choice4text" placeholder="Choice"></label>
+    <% } %>
+    <hr>
+    <br>
+    <h2>Image part</h2>
+    <p>Image part is also not a necessary. Select if you need.</p>
+    <br>
+    <h3>Character</h3>
+    <label>Character 1:
+        <select name="character1">
+            <option value="none" selected>none</option>
+            <% if(contents.characterImgs.length > 0) { %>
+                <% contents.characterImgs.forEach(function(item) { %>
+                    <option value="<%= item.name %>"><%= item.name %></option>
+                <% }) %>
+            <% } %>
+        </select>
+    </label>
+    <label>Character 2:
+        <select name="character2">
+            <option value="none" selected>none</option>
+            <% if(contents.characterImgs.length > 0) { %>
+                <% contents.characterImgs.forEach(function(item) { %>
+                    <option value="<%= item.name %>"><%= item.name %></option>
+                <% }) %>
+            <% } %>
+        </select>
+    </label>
+    <label>Character 3:
+        <select name="character3">
+            <option value="none" selected>none</option>
+            <% if(contents.characterImgs.length > 0) { %>
+                <% contents.characterImgs.forEach(function(item) { %>
+                    <option value="<%= item.name %>"><%= item.name %></option>
+                <% }) %>
+            <% } %>
+        </select>
+    </label>
+    <label>Character 4:
+        <select name="character3">
+            <option value="none" selected>none</option>
+            <% if(contents.characterImgs.length > 0) { %>
+                <% contents.characterImgs.forEach(function(item) { %>
+                    <option value="<%= item.name %>"><%= item.name %></option>
+                <% }) %>
+            <% } %>
+        </select>
+    </label>
+    <br>
+    <h3>Background</h3>
+    <label>Background:
+        <select name="background">
+            <option value="none" selected>none</option>
+            <% if(contents.backgroundImgs.length > 0) { %>
+                <% contents.backgroundImgs.forEach(function(item) { %>
+                    <option value="<%= item.name %>"><%= item.name %></option>
+                <% }) %>
+            <% } %>
+        </select>
+    </label>
+    <br>
+    <a href="" class="btn btn-default">Cancel</a>
+    <input type="submit" class="btn btn-default" style="float: right;" value="Save">
+</form>
 
 <% include _footer %>
