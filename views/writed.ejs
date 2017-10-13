@@ -51,10 +51,13 @@
 <% } %>
 <hr>
 <a href="/writenodvel/<%= contents.title %>/<%= pagecontents.divergence %>/<%= (pagecontents.page + 1) %>" class="btn btn-default" style="float: right;">Next page</a>
-<a href="/writenodvel/rewrite/<%= contents.title %>/<%= pagecontents.divergence %>/<%= pagecontents.page %>" class="btn btn-default" style="float: left;">Rewrite</a>"
+<% if(pagecontents.page - 1 !== 0) { %>
+    <a href="/writenodvel/<%= contents.title %>/<%= pagecontents.divergence %>/<%= (pagecontents.page - 1) %>" class="btn btn-default" style="float: left;">Prev page</a>
+<% } %>
+<hr>
+<a href="/writenodvel/rewrite/<%= contents.title %>/<%= pagecontents.divergence %>/<%= (pagecontents.page - 1) %>" class="btn btn-default" style="float: left;">Rewrite</a>
+<a href="/nodvel/<%= contents.title %>" style="float: right;" class="btn btn default">Main page</a>
 
 <% include _move %>
-
-<a href="/nodvel/<%= contents.title %>" class="btn btn default">Main page</a>
 
 <% include _footer %>
