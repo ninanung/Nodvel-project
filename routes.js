@@ -462,7 +462,7 @@ router.get("/writenodvel/rewrite/:title/:divergence/:page", ensureAuthenticated,
         if(sess.user.username === nodvel.writer) {
             for(let i = 0; i < nodvel.contents.length; i++) {
                 if(nodvel.contents[i].divergence === req.params.divergence && nodvel.contents[i].page === req.params.page) {
-                    return res.render("writing", { contents: nodvel, pagecontents: nodvel.contents[i], divergence: nodvel.contents[i].divergence, page: nodvel.contents[i].page });
+                    return res.render("writing", { contents: nodvel, pagecontents: nodvel.contents[i] });
                 }
             }
             req.flash("error", "There's no contents in that divergence and page.");
@@ -664,6 +664,20 @@ router.post("/nodvel/:title", function(req, res, next) {
                 });
             });
         }
+        else if(req.body.rewrite) {
+            nodvel.ended = false;
+            nodvel.save(function(err) {
+                if(err) return next(err);
+                return res.redirect("/nodvel/" + nodvel.title);
+            });
+        }
+        else if(req.body.end) {
+            nodvel.ended = true;
+            nodvel.save(function(err) {
+                if(err) return next(err);
+                return res.redirect("/nodvel/" + nodvel.title);
+            });
+        }
         //make ended false needed
     });
 });
@@ -709,7 +723,7 @@ router.get("/nodvel/:title/:divergence/:page", ensureAuthenticated, function(req
         }
         nodvel.contents.forEach(function(item) {
             if(item.page === req.params.page && item.divergence === req.params.divergence) {
-                return res.render("nodvel", { pagecontents: item, title: req.params.title });
+                return res.render("view", { pagecontents: item, title: req.params.title });
             }
         });
         req.flash("error", "There's no scene in " + req.params.divergence + ", " + req.params.page);
@@ -732,8 +746,5 @@ router.post("/nodvel/save/:title/:divergence/:page", function(req, res, next) {
         });
     });
 });
-
-//saving rewrite part
-//i want to make redirect to /writenodvel/:title after upload
 
 module.exports = router;
