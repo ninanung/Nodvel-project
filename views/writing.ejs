@@ -105,8 +105,17 @@
         </select>
     </label>
     <br>
-    <a href="" class="btn btn-default">Cancel</a>
     <input type="submit" class="btn btn-default" style="float: right;" value="Save">
+    <% if(pagecontents) { %>
+        <a href="/writeNodvel/<%= contents.title %>/<%= pagecontents.divergence %>/<%= pagecontents.page %>" style="float: left;" class="btn btn-default">Cancel</a>
+    <% } else { %>
+        <hr>
+        <br>
+        <a href="/writeNodvel/<%= contents.title %>/<%= divergence %>/<%= (page + 1) %>" style="float: right;" class="btn btn-default">Next page</a>
+        <% if(page - 1 !== 0) { %>
+            <a href="/writeNodvel/<%= contents.title %>/<%= divergence %>/<%= (page - 1) %>" style="float: right;" class="btn btn-default">Next page</a>
+        <% } %>
+    <% } %>
 </form>
 
 <% include _footer %>
