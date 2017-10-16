@@ -112,13 +112,13 @@
         <hr>
         <br>
         <a href="/writeNodvel/<%= contents.title %>/<%= divergence %>/<%= (page + 1) %>" style="float: right;" class="btn btn-default">Next page</a>
+        <a href="/nodvel/<%= contents.title %>" style="float: right;" class="btn btn default">Main page</a>
         <% if(page - 1 !== 0) { %>
-            <a href="/writeNodvel/<%= contents.title %>/<%= divergence %>/<%= (page - 1) %>" style="float: right;" class="btn btn-default">Next page</a>
+            <a href="/writeNodvel/<%= contents.title %>/<%= divergence %>/<%= (page - 1) %>" style="float: right;" class="btn btn-default">Prev page</a>
         <% } %>
     <% } %>
 </form>
 <br>
-<hr>
 
 <% include _move %>
 
