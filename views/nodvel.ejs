@@ -48,6 +48,8 @@
             <input type="submit" class="btn btn-default" style="float: right;" value="Rewrite this Nodvel">
         </form>
     <% } %>
+    <br>
+    <% include _move %>
     <hr>
     <br>
     <h3>Comments</h3>
@@ -80,7 +82,9 @@
         <input type="submit" class="btn btn-default" style="float: right;" value="Finish writing">
     </form>
     <hr>
-    <a href="/writenodvel/<%= contents.title %>/1/1" class="btn btn-default" style="width: 1100px; height: 30px;">Rewrite page</a>
+    <a href="/writenodvel/<%= contents.title %>/1/1" class="btn btn-default" style="width: 1100px; height: 30px;">Go to page</a>
+    <br>
+    <% include _move %>
 <% } %>
 
 <% include _footer %>
