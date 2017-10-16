@@ -1,7 +1,31 @@
 <% include _header %>
 
 <div style="width: 1200px; height: 900px;">
-    <image></image>
+    <% if(pagecontents.character.length > 0) { %>
+        <img src="<%= pagecontents.background %>">background</img>
+    <% } %>
+    <% if(pagecontents.character.length > 0) { %>
+
+    <% } %>
+    <% if(pagecontents.choice.length > 0) { %>
+        
+    <% } %>
+    <% if(pagecontents.text) { %>
+        <div>
+            
+        </div>
+    <% } %>
 </div>
+<hr>
+<a href="/nodvel/<%= title %>/<%= prevDivergence %>/<%= prevPage %>" style="float: left;">Prev</a>
+<a href="/nodvel/<%= title %>/<%= pagecontents.nextDivergence %>/<%= pagecontents.nextPage %>" style="float: right;">Next</a>
+<hr>
+<form method="post" action="/nodvel/save/<% title %>/<% pagecontents.divergence %>/<% pagecontents.page %>">
+    <select name="save" style="display: none;">
+        <option value="save" selected>save</option>
+    </select>
+    <input type="submit" value="save" style="float: right;" class="btn btn-default">
+</form>
+<a href="/nodvel/<%= contents.title %>" style="float: left;" class="btn btn default">Main page</a>
 
 <% include _footer %>
