@@ -721,18 +721,26 @@ router.get("/saved/delete/:title/:divergence/:page", ensureAuthenticated, functi
     });
 });
 
-//view - showing nodvel to user, reading nodvel part
+//show - showing nodvel to user, reading nodvel part
 router.get("/nodvel/:title/:divergence/:page", ensureAuthenticated, function(req, res, next) {
     Novel.findOne({ title: req.params.title }, function(err, nodvel) {
+        let prevPage = 0;
+        let prevDivergence = 0;
         if(err) return next(err);
         if(!nodvel) return next(err);
         if(!nodvel.ended) {
             req.flash("info", "Writer writing this Nodvel now. Please wait until finish.");
             res.redirect("/");
         }
+        for(let i = 0; i < nodvel.contents.length; let++) {
+            if(nodvel.contents[i].nextDivergence === req.params.divergence && nodvel.contents[i].nextPage === req.params.page) {
+                nodvel.contents[i].divergence = prevDivergence;
+                nodvel.contents[i].page = prevPage;
+            }
+        }
         nodvel.contents.forEach(function(item) {
             if(item.page === req.params.page && item.divergence === req.params.divergence) {
-                return res.render("view", { pagecontents: item, title: req.params.title });
+                return res.render("view", { pagecontents: item, title: req.params.title, prevDivergence: prevDivergence, prevPage: prevPage });
             }
         });
         req.flash("error", "There's no scene in " + req.params.divergence + ", " + req.params.page);
