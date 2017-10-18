@@ -9,7 +9,7 @@ const fs = require("fs");
 const multer = require("multer");
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, "uploads/");
+        cb(null, "./images");
     },
     filename: function(req, file, cb) {
         let filename = file.originalname + "-" + Date.now;
