@@ -3,92 +3,94 @@
 <div style="width: 1200px; height: 900px;">
     <% if(pagecontents.background) { %>
         <div style="position: absolute; z-index: 1;">
-            <img src="<%= pagecontents.background %>">background</img>
+            <img src="<%= pagecontents.background %>">
         </div>
+    <% } else { %>
+        <div style="position: absolute; z-index: 1; background-color: black;"></div>
     <% } %>
     <% if(pagecontents.character.length > 0) { %>
         <% if(pagecontents.character.length === 1) { %>
             <div style="position: absolute; z-index: 2;">
-                    
+                    <img src="<%= pagecontents.character[0].path %>">
             </div>
         <% } %>
         <% if(pagecontents.character.length === 2) { %>
             <div style="position: absolute; z-index: 2;">
-                    
+                    <img src="<%= pagecontents.character[0].path %>">
             </div>
             <div style="position: absolute; z-index: 2;">
-                    
+                    <img src="<%= pagecontents.character[i].path %>">
             </div>
         <% } %>
         <% if(pagecontents.character.length === 3) { %>
             <div style="position: absolute; z-index: 2;">
-                    
+                    <img src="<%= pagecontents.character[0].path %>">
             </div>
             <div style="position: absolute; z-index: 2;">
-                    
+                    <img src="<%= pagecontents.character[1].path %>">
             </div>
             <div style="position: absolute; z-index: 2;">
-                    
+                    <img src="<%= pagecontents.character[2].path %>">
             </div>
         <% } %>
         <% if(pagecontents.character.length === 4) { %>
             <div style="position: absolute; z-index: 2;">
-                    
+                    <img src="<%= pagecontents.character[0].path %>">
             </div>
             <div style="position: absolute; z-index: 2;">
-                    
+                    <img src="<%= pagecontents.character[1].path %>">
             </div>
             <div style="position: absolute; z-index: 2;">
-                    
+                    <img src="<%= pagecontents.character[2].path %>">
             </div>
             <div style="position: absolute; z-index: 2;">
-                    
+                    <img src="<%= pagecontents.character[3].path %>">
             </div>
         <% } %>
     <% } %>
     <% if(pagecontents.choice.length > 0) { %>
         <% if(pagecontents.choice.length === 1) { %>
             <div style="position: absolute; z-index: 4;">
-                    
+                    <%= pagecontents.choice[0] %>
             </div>
         <% } %>
         <% if(pagecontents.choice.length === 2) { %>
             <div style="position: absolute; z-index: 4;">
-                    
+                    <%= pagecontents.choice[0] %>
             </div>
             <div style="position: absolute; z-index: 4;">
-                    
+                    <%= pagecontents.choice[1] %>
             </div>
         <% } %>
         <% if(pagecontents.choice.length === 3) { %>
             <div style="position: absolute; z-index: 4;">
-                    
+                    <%= pagecontents.choice[0] %>
             </div>
             <div style="position: absolute; z-index: 4;">
-                    
+                    <%= pagecontents.choice[1] %>
             </div>
             <div style="position: absolute; z-index: 4;">
-                    
+                    <%= pagecontents.choice[2] %>
             </div>
         <% } %>
         <% if(pagecontents.choice.length === 4) { %>
             <div style="position: absolute; z-index: 4;">
-                    
+                    <%= pagecontents.choice[0] %>
             </div>
             <div style="position: absolute; z-index: 4;">
-                    
+                    <%= pagecontents.choice[0] %>
             </div>
             <div style="position: absolute; z-index: 4;">
-                    
+                    <%= pagecontents.choice[2] %>
             </div>
             <div style="position: absolute; z-index: 4;">
-                    
+                    <%= pagecontents.choice[3] %>
             </div>
         <% } %>
     <% } %>
     <% if(pagecontents.text) { %>
         <div style="position: absolute; z-index: 3;">
-            
+            <%= pagecontents.text %>
         </div>
     <% } %>
 </div>
