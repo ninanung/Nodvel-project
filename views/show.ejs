@@ -1,17 +1,93 @@
 <% include _header %>
 
 <div style="width: 1200px; height: 900px;">
-    <% if(pagecontents.character.length > 0) { %>
-        <img src="<%= pagecontents.background %>">background</img>
+    <% if(pagecontents.background) { %>
+        <div style="position: absolute; z-index: 1;">
+            <img src="<%= pagecontents.background %>">background</img>
+        </div>
     <% } %>
     <% if(pagecontents.character.length > 0) { %>
-
+        <% if(pagecontents.character.length === 1) { %>
+            <div style="position: absolute; z-index: 2;">
+                    
+            </div>
+        <% } %>
+        <% if(pagecontents.character.length === 2) { %>
+            <div style="position: absolute; z-index: 2;">
+                    
+            </div>
+            <div style="position: absolute; z-index: 2;">
+                    
+            </div>
+        <% } %>
+        <% if(pagecontents.character.length === 3) { %>
+            <div style="position: absolute; z-index: 2;">
+                    
+            </div>
+            <div style="position: absolute; z-index: 2;">
+                    
+            </div>
+            <div style="position: absolute; z-index: 2;">
+                    
+            </div>
+        <% } %>
+        <% if(pagecontents.character.length === 4) { %>
+            <div style="position: absolute; z-index: 2;">
+                    
+            </div>
+            <div style="position: absolute; z-index: 2;">
+                    
+            </div>
+            <div style="position: absolute; z-index: 2;">
+                    
+            </div>
+            <div style="position: absolute; z-index: 2;">
+                    
+            </div>
+        <% } %>
     <% } %>
     <% if(pagecontents.choice.length > 0) { %>
-        
+        <% if(pagecontents.choice.length === 1) { %>
+            <div style="position: absolute; z-index: 4;">
+                    
+            </div>
+        <% } %>
+        <% if(pagecontents.choice.length === 2) { %>
+            <div style="position: absolute; z-index: 4;">
+                    
+            </div>
+            <div style="position: absolute; z-index: 4;">
+                    
+            </div>
+        <% } %>
+        <% if(pagecontents.choice.length === 3) { %>
+            <div style="position: absolute; z-index: 4;">
+                    
+            </div>
+            <div style="position: absolute; z-index: 4;">
+                    
+            </div>
+            <div style="position: absolute; z-index: 4;">
+                    
+            </div>
+        <% } %>
+        <% if(pagecontents.choice.length === 4) { %>
+            <div style="position: absolute; z-index: 4;">
+                    
+            </div>
+            <div style="position: absolute; z-index: 4;">
+                    
+            </div>
+            <div style="position: absolute; z-index: 4;">
+                    
+            </div>
+            <div style="position: absolute; z-index: 4;">
+                    
+            </div>
+        <% } %>
     <% } %>
     <% if(pagecontents.text) { %>
-        <div>
+        <div style="position: absolute; z-index: 3;">
             
         </div>
     <% } %>
