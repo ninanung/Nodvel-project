@@ -11,9 +11,11 @@
 <br>
 <h3>Uploaded character</h3>
 <ul>
-<% contents.characterImgs.forEach(function(item) { %>
-    <li><%= item.name %></li>
-<% }) %>
+<% if(contents.characterImgs.length > 0) { %>
+    <% contents.characterImgs.forEach(function(item) { %>
+        <li><%= item.name %></li>
+    <% }) %>
+<% } %>
 </ul>
 <br>
 <hr>
@@ -28,9 +30,11 @@
 <br>
 <h3>Uploaded background</h3>
 <ul>
-<% contents.backgroundImgs.forEach(function(item) { %>
-    <li><%= item.name %></li>
-<% }) %>
+<% if(contents.backgroundImgs.length > 0) { %>
+    <% contents.backgroundImgs.forEach(function(item) { %>
+        <li><%= item.name %></li>
+    <% }) %>
+<% } %>
 </ul>
 <br>
 <a href="/writenodvel/<%= contents.title %>/1/1" class="btn btn-default">Go to write</a>
