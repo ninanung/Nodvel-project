@@ -11,7 +11,7 @@ const userSchema = mongoose.Schema({
         title: String,
         date: { type: Date, default: Date.now }  
     }],
-    save: [{
+    savePoint: [{
         title: String,
         divergence: String,
         page: String,
