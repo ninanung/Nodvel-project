@@ -222,22 +222,22 @@ router.post("/writenodvel", function(req, res, next) {
             req.flash("error", "Same title already exist.");
             return res.redirect("/writenodvel");
         }
-        const newNodvel = new Novel({
-            writer: writer,
-            title: title,
-            story: story,
-            genre: genre
-        });
-        newNodvel.save(function(err) {
-            if(err) {
-                return next(err);
-            }
-            return res.redirect("/writenodvel/upload/" + title);
-        });
+    });
+    const newNodvel = new Novel({
+        writer: writer,
+        title: title,
+        story: story,
+        genre: genre
+    });
+    newNodvel.save(function(err) {
+        if(err) {
+            return next(err);
+        }
+        return res.redirect("/writenodvel/upload/" + title);
     });
 });
 
-//writenodvel - rewrite
+//rewritenodvel - rewrite
 router.get("/writenodvel/rewrite/:title", ensureAuthenticated, function(req, res, next) {
     Novel.findOne({ title: req.params.title }, function(err, nodvel) {
         if(err) return next(err);
@@ -251,7 +251,7 @@ router.get("/writenodvel/rewrite/:title", ensureAuthenticated, function(req, res
             req.flash("info", "Only writer can write or rewrite Nodvel.");
             return res.redirect("/");
         }
-        res.render("writenodvel", { contents: nodvel });
+        res.render("rewritenodvel", { contents: nodvel });
     });
 });
 
@@ -270,7 +270,7 @@ router.post("/writenodvel/rewrite/:title", function(req, res, next) {
 });
 
 //upload
-router.get("/writenodvel/upload/:title", ensureAuthenticated, function(req, res, next) {
+router.get("/rewritenodvel/upload/:title", ensureAuthenticated, function(req, res, next) {
     Novel.findOne({ title: req.params.title }, function(err, nodvel) {
         if(err) return next(err);
         if(!nodvel) {
@@ -347,7 +347,9 @@ router.post("/writenodvel/:title/:divergence/:page", function(req, res, next) {
                 }
             }
         }
-        else const background = "";
+        else {
+            const background = "";
+        }
         nodvel.contents.push({
             divergence: divergence,
             page: page,
@@ -505,7 +507,9 @@ router.post("/writenodvel/rewrite/:title/:divergence/:page", function(req, res, 
                 }
             }
         }
-        else const background = "";
+        else {
+            const background = "";
+        }
         for(let i = 0; i <= nodvel.contents.length; i++) {
             if(nodvel.contents[i].divergence === divergence && nodvel.contents[i].page === page) {
                 nodvel.contents[i].test = text;
@@ -697,7 +701,7 @@ router.get("/saved", ensureAuthenticated, function(req, res, next) {
     User.findOne({ username: sess.user.username }, function(err, user) {
         if(err) return next(err);
         if(!user) return next(err);
-        res.render("save", { contents: user.save });
+        res.render("save", { contents: user.savePoint });
     });
 });
 
@@ -708,7 +712,7 @@ router.get("/saved/delete/:title/:divergence/:page", ensureAuthenticated, functi
         if(!user) return next(err);
         for(let i = 0; i < user.save.length; i++) {
             if(user.save[i].title === req.params.title && user.save[i].divergence === req.params.divergence && user.save[i].page === req.params.page) {
-                user.save.splice(i, 1);
+                user.savePoint.splice(i, 1);
                 user.save(function(err) {
                     if(err) return next(err);
                     req.flash("info", "Save point deleted.");
