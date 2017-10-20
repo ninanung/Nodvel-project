@@ -5,17 +5,10 @@
 <p>Writer : <%= writer %></p>
 <form action="/writenodvel" method="post">
 	<h4>Title</h4>
-	<% if(contents.titlt) { %>
-		<input name="title" type="taxt" class="form-control" value="<%= contents.title %>" required>
-		<br>
-		<h4>Preview of story</h4>
-		<input name="story" type="text" class="form-control" value="<%= contents.story %>" required>
-	<% } else { %>
-		<input name="title" type="taxt" class="form-control" placeholder="Title" required>
-		<br>
-		<h4>Preview of story</h4>
-		<input name="story" type="text" class="form-control" placeholder="Story" required>
-	<% } %>
+	<input name="title" type="taxt" class="form-control" placeholder="Title" required>
+	<br>
+	<h4>Preview of story</h4>
+	<input name="story" type="text" class="form-control" placeholder="Story" required>
 	<br>
 	<h4>Select main genre</h4>
 	<select name="genre" class="selectpicker" style="width: 400px; height: 40px; line-height: 40px;" required>
