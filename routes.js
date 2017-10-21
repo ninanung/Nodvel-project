@@ -213,7 +213,7 @@ router.post("/writenodvel", function(req, res, next) {
     const writer = sess.user.username;
     const title = req.body.title;
     const genre = req.body.genre;
-    const story = req.body.stroy;
+    const story = req.body.story;
     Novel.findOne({ title: title }, function(err, novel) {
         if(err) {
             return next(err);
@@ -231,6 +231,7 @@ router.post("/writenodvel", function(req, res, next) {
     });
     newNodvel.save(function(err) {
         if(err) {
+            console.log(err);
             return next(err);
         }
         return res.redirect("/writenodvel/upload/" + title);
