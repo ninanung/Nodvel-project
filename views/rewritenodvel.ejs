@@ -3,7 +3,7 @@
 <h1>Basic information for new Nodvel</h1>
 <hr>
 <p>Writer : <%= writer %></p>
-<form action="/writenodvel" method="post">
+<form action="/writenodvel/rewrite/<%= contents.title %>" method="post">
 	<h4>Title</h4>
 	<% if(contents.title) { %>
 		<input name="title" type="taxt" class="form-control" value="<%= contents.title %>" required>
