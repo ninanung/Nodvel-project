@@ -271,7 +271,7 @@ router.post("/writenodvel/rewrite/:title", function(req, res, next) {
 });
 
 //upload
-router.get("/rewritenodvel/upload/:title", ensureAuthenticated, function(req, res, next) {
+router.get("/writenodvel/upload/:title", ensureAuthenticated, function(req, res, next) {
     Novel.findOne({ title: req.params.title }, function(err, nodvel) {
         if(err) return next(err);
         if(!nodvel) {
