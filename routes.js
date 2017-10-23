@@ -248,7 +248,7 @@ router.get("/writenodvel/rewrite/:title", ensureAuthenticated, function(req, res
             req.flash("error", "Nodvel is ended. You can't change this.")
             return res.redirect("/nodvel/" + req.params.title);
         }
-        if(sess.user.username === nodvel.writer) {
+        if(sess.user.username !== nodvel.writer) {
             req.flash("info", "Only writer can write or rewrite Nodvel.");
             return res.redirect("/");
         }
