@@ -2,17 +2,20 @@
 
 <h1><%= contents.title %></h1>
 <hr>
-<h3>writed by <%= contents.writer %></h3>
-<h3>genre is <%= contents.genre %></h3>
-<h3>preview of story</h3>
+<h3>Writed by <%= contents.writer %></h3>
+<br>
+<h3>Genre : <%= contents.genre %></h3>
+<br>
+<h3>Preview of story</h3>
 <div style="white-space: pre; width: 400px; height: 40px;"><%= contents.story %></div>
+<br>
 <hr>
-<% if(nodvel.ended) { %> 
+<% if(contents.ended) { %> 
     <% if(user.like.length > 0) { %>
         <% let conut = 0 %>
         <% for(let i = 0; i < user.like.length; i++) { %>
             <% if(user.like[i].title === contents.title) { %>
-                <form action="/nodvel/<%= nodvel.title %>" method="post">
+                <form action="/nodvel/<%= contents.title %>" method="post">
                     <select name="cancellike" style="display: none;">
                         <option value="cancellike" selected>cancellike</option>
                     </select>
@@ -23,7 +26,7 @@
             <% } %>
         <% } %>    
         <% if(count === 0) { %>
-            <form action="/nodvel/<%= nodvel.title %>" method="post">
+            <form action="/nodvel/<%= contents.title %>" method="post">
                 <select name="like" style="display: none;">
                     <option value="like" selected>like</option>
                 </select>
@@ -31,7 +34,7 @@
             </form>
         <% } %>
     <% } else { %>
-        <form action="/nodvel/<%= nodvel.title %>" method="post">
+        <form action="/nodvel/<%= contents.title %>" method="post">
             <select name="like" style="display: none;">
                 <option value="like" selected>like</option>
             </select>
@@ -41,7 +44,7 @@
     <a href="/nodvel/<%= contents.title %>/1/1" class="btn btn-default" style="width: 1100px; height: 30px;">Start Nodvel!</a>
     <% if(user.username === contents.writer) { %>
         <hr>
-        <form action="/nodvel/<%= nodvel.title %>" method="post">
+        <form action="/nodvel/<%= contents.title %>" method="post">
             <select name="rewrite" style="display: none;">
                 <option value="rewrite" selected>rewrite</option>
             </select>
@@ -74,15 +77,17 @@
     <br>
 <% } else { %>
     <br>
-    <a href="/writenodvel/rewrite/<%= nodvel.title %>" style="float: left;" class="btn btn-default">Change simple info</a>
-    <form action="/nodvel/<%= nodvel.title %>" method="post">
+    <a href="/writenodvel/rewrite/<%= contents.title %>" style="float: left;" class="btn btn-default">Change simple info</a>
+    <form action="/nodvel/<%= contents.title %>" method="post">
         <select name="end" style="display: none;">
             <option value="end" selected>end</option>
         </select>
         <input type="submit" class="btn btn-default" style="float: right;" value="Finish writing">
     </form>
-    <hr>
-    <a href="/writenodvel/<%= contents.title %>/1/1" class="btn btn-default" style="width: 1100px; height: 30px;">Go to page</a>
+    <a href="/writenodvel/<%= contents.title %>/1/1" class="btn btn-default" style="width: 1100px; height: 30px;"><h1>Go to write Nodvel</h1></a>
+    <br>
+    <br>
+    <br>
     <br>
     <% include _move %>
 <% } %>
