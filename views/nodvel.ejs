@@ -11,26 +11,34 @@
 <br>
 <hr>
 <% if(contents.ended) { %> 
+    <% if(user.username === contents.writer) { %>
+        <form action="/nodvel/<%= contents.title %>" method="post">
+            <select name="rewrite" style="display: none;">
+                <option value="rewrite" selected>rewrite</option>
+            </select>
+            <input type="submit" class="btn btn-primary" style="float: right;" value="Rewrite this Nodvel">
+        </form>
+    <% } %>
     <% if(user.like.length > 0) { %>
-        <% let conut = 0 %>
+        <% let count = false %>
         <% for(let i = 0; i < user.like.length; i++) { %>
             <% if(user.like[i].title === contents.title) { %>
                 <form action="/nodvel/<%= contents.title %>" method="post">
                     <select name="cancellike" style="display: none;">
                         <option value="cancellike" selected>cancellike</option>
                     </select>
-                    <input type="submit" class="btn btn-default" style="float: right;" value="Cancel like">
+                    <input type="submit" class="btn btn-primary" style="float: left;" value="Cancel like">
                 </form>
-                <% count = 1 %> 
+                <% count = true %> 
                 <% break %>
             <% } %>
         <% } %>    
-        <% if(count === 0) { %>
+        <% if(!count) { %>
             <form action="/nodvel/<%= contents.title %>" method="post">
                 <select name="like" style="display: none;">
                     <option value="like" selected>like</option>
                 </select>
-                <input type="submit" class="btn btn-default" style="float: right;" value="Give like">
+                <input type="submit" class="btn btn-primary" style="float: left;" value="Give like">
             </form>
         <% } %>
     <% } else { %>
@@ -38,19 +46,12 @@
             <select name="like" style="display: none;">
                 <option value="like" selected>like</option>
             </select>
-            <input type="submit" class="btn btn-default" style="float: right;" value="Give like">
+            <input type="submit" class="btn btn-primary" style="float: left;" value="Give like">
         </form>
     <% } %>
-    <a href="/nodvel/<%= contents.title %>/1/1" class="btn btn-default" style="width: 1100px; height: 30px;">Start Nodvel!</a>
-    <% if(user.username === contents.writer) { %>
-        <hr>
-        <form action="/nodvel/<%= contents.title %>" method="post">
-            <select name="rewrite" style="display: none;">
-                <option value="rewrite" selected>rewrite</option>
-            </select>
-            <input type="submit" class="btn btn-default" style="float: right;" value="Rewrite this Nodvel">
-        </form>
-    <% } %>
+    <a href="/nodvel/<%= contents.title %>/1/1" class="btn btn-default" style="width: 1100px; height: 30px;"><h1>Start Nodvel!</h1></a>
+    <br>
+    <br>
     <br>
     <% include _move %>
     <hr>
@@ -72,17 +73,16 @@
     <br>
     <form action="/nodvel/<%= contents.title %>" method="post">
         <input id="comment" autocomplete="off" type="text" class="form-control" placeholder="Comment" name="comment" style="width: 900px; float: left;">
-        <input type="submit" value="Comment" class="btn btn-default" style="float: left;">
+        <input type="submit" value="Comment" class="btn btn-info" style="float: left;">
     </form>
     <br>
 <% } else { %>
-    <br>
-    <a href="/writenodvel/rewrite/<%= contents.title %>" style="float: left;" class="btn btn-default">Change simple info</a>
+    <a href="/writenodvel/rewrite/<%= contents.title %>" style="float: left;" class="btn btn-primary">Change simple info</a>
     <form action="/nodvel/<%= contents.title %>" method="post">
         <select name="end" style="display: none;">
             <option value="end" selected>end</option>
         </select>
-        <input type="submit" class="btn btn-default" style="float: right;" value="Finish writing">
+        <input type="submit" class="btn btn-primary" style="float: right; border:" value="Finish writing">
     </form>
     <a href="/writenodvel/<%= contents.title %>/1/1" class="btn btn-default" style="width: 1100px; height: 30px;"><h1>Go to write Nodvel</h1></a>
     <br>
