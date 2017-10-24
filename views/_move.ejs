@@ -1,9 +1,10 @@
 <h4>Move page</h4>
-<hr>
+<br>
 <form action="/writenodvel/move/<%= contents.title %>" method="post" >
-    <input type="text" class="form-control" placeholder="Divergence" name="moveDivergence" style="width: 100px; float: left;" required>
+    <input type="text" class="form-control" placeholder="Divergence" name="moveDivergence" style="width: 150px; float: left;" required>
     <input type="text" class="form-control" placeholder="Page" name="movePage" style="width: 100px; float: left;" required>
-    <input type="submit" value="Move" class="btn btn-default" style="float: left;">
+    <input type="submit" value="Move" class="btn btn-primary" style="float: left;">
 </form>
-<a href="/writenodvel/search/<%= contents.title %>" class="btn btn-default" style="float: left;">Search page</a>
+<a href="/writenodvel/search/<%= contents.title %>" class="btn btn-info" style="float: left;">Search page</a>
+<br>
 <br>
