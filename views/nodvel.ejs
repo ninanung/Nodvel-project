@@ -82,7 +82,7 @@
         <select name="end" style="display: none;">
             <option value="end" selected>end</option>
         </select>
-        <input type="submit" class="btn btn-primary" style="float: right; border:" value="Finish writing">
+        <input type="submit" class="btn btn-primary" style="float: right;" value="Finish writing">
     </form>
     <a href="/writenodvel/<%= contents.title %>/1/1" class="btn btn-default" style="width: 1100px; height: 30px;"><h1>Go to write Nodvel</h1></a>
     <br>
@@ -90,6 +90,17 @@
     <br>
     <br>
     <% include _move %>
+    <hr>
+    <br>
+    <h1 style="color: red;">Warning!</h1>
+    <br>
+    <h3>This button will delete this Nodvel and can't return. You really want to delete?</h3>
+    <form action="/nodvel/<%= contents.title %>/delete" method="post">
+        <select name="delete" style="display: none;">
+            <option value="delete" selected>delete</option>
+        </select>
+        <input type="submit" class="btn btn-primary" value="Yes, i really want to">
+    </form>
 <% } %>
 
 <% include _footer %>
