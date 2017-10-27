@@ -4,7 +4,7 @@
 <br>
 <hr>
 <br>
-<form method="post" action="/writenodvel/">
+<form method="post" action="/writenodvel/<%= contents.title %>">
     <h3>Paging part</h3>
     <p>Paging part is must be fullfilled.</p>
     <br>
@@ -14,8 +14,8 @@
         <label>Next Divergence: <input type="text" class="form-control" name="nextDivergence" value="<%= pagecontents.nextDivergence %>" required></label>
         <label>Next Page: <input type="text" class="form-control" name="nextPage" value="<%= pagecontents.nextPage %>" required></label>
     <% } else { %>
-        <label>Divergence: <input type="text" class="form-control" name="divergence" required></label>
-        <label>Page: <input type="text" class="form-control" name="page" required></label>
+        <label>Divergence: <input type="text" class="form-control" name="divergence" value="<%= divergence %>" required></label>
+        <label>Page: <input type="text" class="form-control" name="page" value="<%= page %>" required></label>
         <label>Next Divergence: <input type="text" class="form-control" name="nextDivergence" required></label>
         <label>Next Page: <input type="text" class="form-control" name="nextPage" required></label>
     <% } %>
@@ -23,6 +23,7 @@
     <br>
     <h2>Text part</h2>
     <p>Text part is not a necessary for writing. But if you need, should type it up.</p>
+    <p>And, in choice, you must write Divergence and Page. Mind this.</p>
     <br>
     <h3>Text</h3>
     <% if(pagecontents && pagecontents.text) { %> 
@@ -35,16 +36,28 @@
     <% if(pagecontents && pagecontents.choice.length > 0) { %> 
         <% for(let i = 0; i < 4; i++) { %>
             <% if(pagecontents.choice[i]) { %> 
-                <label>Choice <%= (i + 1) %>: <input type="text" class="form-control" style="width: 1100px; height: 100px;" name="choice<%= (i + 1) %>text" value="<%= pagecontents.choice[i] %>"></label>
+                <label>Choice <%= (i + 1) %>: <input type="text" class="form-control" style="width: 1100px; height: 100px;" name="choice<%= (i + 1) %>text" value="<%= pagecontents.choice[i].text %>"></label>
+                <label>Choice <%= (i + 1) %> Divergence: <input type="text" class="form-control" name="choice<%= (i + 1) %>nextDivergence" value="<%= pagecontents.choice[i].nextDivergence %>"></label>
+                <label>Choice <%= (i + 1) %> Page: <input type="text" class="form-control" name="choice<%= (i + 1) %>nextPage" value="<%= pagecontents.choice[i].nextPage %>"></label>
             <% } else { %>
                 <label>Choice <%= (i + 1) %>: <input type="text" class="form-control" style="width: 1100px; height: 100px;" name="choice<%= (i + 1) %>text" placeholder="Choice"></label>
+                <label>Choice <%= (i + 1) %> Divergence: <input type="text" class="form-control" name="choice<%= (i + 1) %>nextDivergence" placeholder="Path to next page"></label>
+                <label>Choice <%= (i + 1) %> Page: <input type="text" class="form-control" name="choice<%= (i + 1) %>nextPage" placeholder="Path to next page"></label>
             <% } %>
         <% } %>
     <% } else { %>
         <label>Choice 1: <input type="text" class="form-control" style="width: 1100px; height: 100px;" name="choice1text" placeholder="Choice"></label>
+        <label>Choice 1 Divergence: <input type="text" class="form-control" name="choice1nextDivergence" placeholder="Path to next page"></label>
+        <label>Choice 1 Page: <input type="text" class="form-control" name="choice1nextPage" placeholder="Path to next page"></label>
         <label>Choice 2: <input type="text" class="form-control" style="width: 1100px; height: 100px;" name="choice2text" placeholder="Choice"></label>
+        <label>Choice 2 Divergence: <input type="text" class="form-control" name="choice2nextDivergence" placeholder="Path to next page"></label>
+        <label>Choice 2 Page: <input type="text" class="form-control" name="choice2nextPage" placeholder="Path to next page"></label>
         <label>Choice 3: <input type="text" class="form-control" style="width: 1100px; height: 100px;" name="choice3text" placeholder="Choice"></label>
+        <label>Choice 3 Divergence: <input type="text" class="form-control" name="choice3nextDivergence" placeholder="Path to next page"></label>
+        <label>Choice 3 Page: <input type="text" class="form-control" name="choice3nextPage" placeholder="Path to next page"></label>
         <label>Choice 4: <input type="text" class="form-control" style="width: 1100px; height: 100px;" name="choice4text" placeholder="Choice"></label>
+        <label>Choice 4 Divergence: <input type="text" class="form-control" name="choice4nextDivergence" placeholder="Path to next page"></label>
+        <label>Choice 4 Page: <input type="text" class="form-control" name="choice4nextPage" placeholder="Path to next page"></label>
     <% } %>
     <hr>
     <br>
@@ -105,10 +118,12 @@
         </select>
     </label>
     <br>
-    <input type="submit" class="btn btn-default" style="float: right;" value="Save">
+    <input type="submit" class="btn btn-primary" style="float: right;" value="Save">
     <% if(pagecontents) { %>
         <a href="/writeNodvel/<%= contents.title %>/<%= pagecontents.divergence %>/<%= pagecontents.page %>" style="float: left;" class="btn btn-default">Cancel</a>
     <% } else { %>
+        <br>
+        <br>
         <hr>
         <br>
         <a href="/writeNodvel/<%= contents.title %>/<%= divergence %>/<%= (page + 1) %>" style="float: right;" class="btn btn-default">Next page</a>
