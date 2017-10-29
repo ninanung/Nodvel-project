@@ -11,13 +11,13 @@
     <% if(pagecontents) { %> 
         <label>Divergence: <input type="text" class="form-control" name="divergence" value="<%= pagecontents.divergence %>" required></label>
         <label>Page: <input type="text" class="form-control" name="page" value="<%= pagecontents.page %>" required></label>
-        <label>Next Divergence: <input type="text" class="form-control" name="nextDivergence" value="<%= pagecontents.nextDivergence %>" required></label>
-        <label>Next Page: <input type="text" class="form-control" name="nextPage" value="<%= pagecontents.nextPage %>" required></label>
+        <label>Next Divergence: <input type="text" class="form-control" name="nextDivergence" value="<%= pagecontents.nextDivergence %>"></label>
+        <label>Next Page: <input type="text" class="form-control" name="nextPage" value="<%= pagecontents.nextPage %>"></label>
     <% } else { %>
         <label>Divergence: <input type="text" class="form-control" name="divergence" value="<%= divergence %>" required></label>
         <label>Page: <input type="text" class="form-control" name="page" value="<%= page %>" required></label>
-        <label>Next Divergence: <input type="text" class="form-control" name="nextDivergence" required></label>
-        <label>Next Page: <input type="text" class="form-control" name="nextPage" required></label>
+        <label>Next Divergence: <input type="text" class="form-control" name="nextDivergence"></label>
+        <label>Next Page: <input type="text" class="form-control" name="nextPage"></label>
     <% } %>
     <hr>
     <br>
@@ -120,17 +120,22 @@
     <br>
     <input type="submit" class="btn btn-primary" style="float: right;" value="Save">
     <% if(pagecontents) { %>
-        <a href="/writeNodvel/<%= contents.title %>/<%= pagecontents.divergence %>/<%= pagecontents.page %>" style="float: left;" class="btn btn-default">Cancel</a>
+        <a href="/writeNodvel/<%= contents.title %>/<%= pagecontents.divergence %>/<%= pagecontents.page %>" style="float: left;" class="btn btn-primary">Cancel</a>
+        <br>
+        <br>
     <% } else { %>
         <br>
         <br>
         <hr>
         <br>
-        <a href="/writeNodvel/<%= contents.title %>/<%= divergence %>/<%= (page + 1) %>" style="float: right;" class="btn btn-default">Next page</a>
-        <a href="/nodvel/<%= contents.title %>" style="float: right;" class="btn btn default">Main page</a>
-        <% if(page - 1 !== 0) { %>
-            <a href="/writeNodvel/<%= contents.title %>/<%= divergence %>/<%= (page - 1) %>" style="float: right;" class="btn btn-default">Prev page</a>
+        <% let i = (page * 1) + 1 %>
+        <a href="/writeNodvel/<%= contents.title %>/<%= divergence %>/<%= i %>" style="float: right;" class="btn btn-primary">Next page</a>
+        <a href="/nodvel/<%= contents.title %>" class="btn btn-info">Main page</a>
+        <% if(page - 1 > 0) { %>
+            <a href="/writeNodvel/<%= contents.title %>/<%= divergence %>/<%= (page - 1) %>" style="float: left;" class="btn btn-primary">Prev page</a>
         <% } %>
+        <br>
+        <br>
     <% } %>
 </form>
 <br>
