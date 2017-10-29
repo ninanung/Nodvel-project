@@ -1,11 +1,25 @@
 <% include _header %>
 
+<% if(!pagecontents.nextDivergence || !pagecontents.nextPage) { %>
+    <% if(pagecontents.choice.length == 0) { %>
+        <h1 style="color: red;">Warning! There's no path to next scene!</h1>
+        <br>
+    <% } %>    
+<% } %>
 <h1><%= contents.title %></h1>
 <h2>Divergence: <%= pagecontents.divergence %></h2>
 <h2>Page: <%= pagecontents.page %></h2>
-<h2>Next divergence: <%= pagecontents.nextDivergence %></h2>
-<h2>Next page: <%= pagecontents.nextPage %></h2>
-<a href="/writenodvel/<%= contents.title %>/<%= pagecontents.nextDivegence %>/<%= pagecontents.nextPage %>" class="btn btn-default">Go to next scene</a>
+<% if(pagecontents.nextDivergence) { %>
+    <h2>Next divergence: <%= pagecontents.nextDivergence %></h2>
+<% } else { %>
+    <h2>Next divergence: There's no next divergence</h2>
+<% } %>
+<% if(pagecontents.nextPage) { %>
+    <h2>Next page: <%= pagecontents.nextPage %></h2>
+<% } else { %>
+    <h2>Next page: There's no next page</h2>
+<% } %>
+<br>
 <hr>
 <h2>Text</h2>
 <hr>
@@ -20,7 +34,7 @@
 <hr>
 <% if(pagecontents.choice.length > 0) { %>
     <% pagecontents.character.forEach(function(item) { %>
-        <a>item.text</a>
+        <a href="/writenodvel/<%= contents.title %>/<%= item.nextDivergence %>/<%= item.nextPage %>">item.text</a>
         <a>Next divergence: <%= item.nextDivergence %></a>
         <a>Next page: <%= item.nextPage %></a>
         <hr>
@@ -42,21 +56,27 @@
 <% } %>
 <h2>Background</h2>
 <hr>
-<% if(pagecontents.background) { %>
+<% if(pagecontents.background.name) { %>
     <img src="<%= pagecontents.background %>" width="900px" height="auto"/>
     <hr>
 <% } else { %>
     <a>No background in this scene</a>
     <hr>
 <% } %>
-<hr>
-<a href="/writenodvel/<%= contents.title %>/<%= pagecontents.divergence %>/<%= (pagecontents.page + 1) %>" class="btn btn-default" style="float: right;">Next page</a>
-<% if(pagecontents.page - 1 !== 0) { %>
-    <a href="/writenodvel/<%= contents.title %>/<%= pagecontents.divergence %>/<%= (pagecontents.page - 1) %>" class="btn btn-default" style="float: left;">Prev page</a>
+<% if(pagecontents.nextDivergence && pagecontents.nextPage) { %>
+    <a href="/writenodvel/<%= contents.title %>/<%= pagecontents.nextDivergence %>/<%= pagecontents.nextPage %>" class="btn btn-info">Go to next scene</a>
 <% } %>
+<a href="/writenodvel/<%= contents.title %>/<%= pagecontents.divergence %>/<%= (pagecontents.page + 1) %>" class="btn btn-primary" style="float: right;">Page + 1</a>
+<% if(pagecontents.page - 1 !== 0) { %>
+    <a href="/writenodvel/<%= contents.title %>/<%= pagecontents.divergence %>/<%= (pagecontents.page - 1) %>" class="btn btn-primary" style="float: left;">Page - 1</a>
+<% } %>
+<br>
+<br>
 <hr>
-<a href="/writenodvel/rewrite/<%= contents.title %>/<%= pagecontents.divergence %>/<%= (pagecontents.page - 1) %>" class="btn btn-default" style="float: left;">Rewrite</a>
-<a href="/nodvel/<%= contents.title %>" style="float: right;" class="btn btn default">Main page</a>
+<a href="/writenodvel/rewrite/<%= contents.title %>/<%= pagecontents.divergence %>/<%= pagecontents.page %>" class="btn btn-primary" style="float: left;">Rewrite</a>
+<a href="/nodvel/<%= contents.title %>" style="float: right;" class="btn btn-primary">Main page</a>
+<br>
+<br>
 <br>
 
 <% include _move %>
