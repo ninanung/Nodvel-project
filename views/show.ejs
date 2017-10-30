@@ -38,6 +38,16 @@
     </style>
 </head>
 <body>
+    <% errors.forEach(function(error) { %>
+        <div class="alert alert-danger" role="alert">
+            <%= error %>
+        </div>
+    <% }) %>
+    <% infos.forEach(function(info) { %>
+        <div class="alert alert-info" role="alert">
+            <%= info %>
+        </div>
+    <% }) %>
 <div class="container" style="position: relative; overflow: hidden; width: 100%; height: 100%;"> 
     <% if(pagecontents.background) { %>
         <img src="<%= pagecontents.background %>" style="position: absolute; z-index: 1; top: 0px; left: 0px; width: 1200px; height: 980px;">
@@ -67,40 +77,40 @@
     <% if(pagecontents.choice.length > 0) { %>
         <% if(pagecontents.choice.length === 1) { %>
             <div id="choice" style="top: 390px;">
-                <%= pagecontents.choice[0] %>
+                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[0].nextDivergence %>/<%= pagecontents.choice[0].nextPage %>?prevDivergence=<%= pagecontents.divergence %>&prevPage=<%= pagecontents.page %>&prev2Divergence=<%= prevDivergence %>&prev2Page=<%= prevPage %>"><%= pagecontents.choice[0].text %></a>
             </div>
         <% } %>
         <% if(pagecontents.choice.length === 2) { %>
             <div id="choice" style="top: 220px;">
-                <%= pagecontents.choice[0] %>
+                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[0].nextDivergence %>/<%= pagecontents.choice[0].nextPage %>?prevDivergence=<%= pagecontents.divergence %>&prevPage=<%= pagecontents.page %>&prev2Divergence=<%= prevDivergence %>&prev2Page=<%= prevPage %>"><%= pagecontents.choice[0].text %></a>
             </div>
             <div id="choice" style="top: 420px">
-                <%= pagecontents.choice[1] %>
+                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[1].nextDivergence %>/<%= pagecontents.choice[1].nextPage %>?prevDivergence=<%= pagecontents.divergence %>&prevPage=<%= pagecontents.page %>&prev2Divergence=<%= prevDivergence %>&prev2Page=<%= prevPage %>"><%= pagecontents.choice[1].text %></a>
             </div>
         <% } %>
         <% if(pagecontents.choice.length === 3) { %>
             <div id="choice" style="top: 100px">
-                <%= pagecontents.choice[0] %>
+                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[0].nextDivergence %>/<%= pagecontents.choice[0].nextPage %>?prevDivergence=<%= pagecontents.divergence %>&prevPage=<%= pagecontents.page %>&prev2Divergence=<%= prevDivergence %>&prev2Page=<%= prevPage %>"><%= pagecontents.choice[0].text %></a>
             </div>
             <div id="choice" style="top: 300px">
-                <%= pagecontents.choice[1] %>
+                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[1].nextDivergence %>/<%= pagecontents.choice[1].nextPage %>?prevDivergence=<%= pagecontents.divergence %>&prevPage=<%= pagecontents.page %>&prev2Divergence=<%= prevDivergence %>&prev2Page=<%= prevPage %>"><%= pagecontents.choice[1].text %></a>
             </div>
             <div id="choice" style="top: 500px">
-                <%= pagecontents.choice[2] %>
+                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[2].nextDivergence %>/<%= pagecontents.choice[2].nextPage %>?prevDivergence=<%= pagecontents.divergence %>&prevPage=<%= pagecontents.page %>&prev2Divergence=<%= prevDivergence %>&prev2Page=<%= prevPage %>"><%= pagecontents.choice[2].text %></a>
             </div>
         <% } %>
         <% if(pagecontents.choice.length === 4) { %>
             <div id="choice" style="top: 50px">
-                <%= pagecontents.choice[0] %>
+                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[0].nextDivergence %>/<%= pagecontents.choice[0].nextPage %>?prevDivergence=<%= pagecontents.divergence %>&prevPage=<%= pagecontents.page %>&prev2Divergence=<%= prevDivergence %>&prev2Page=<%= prevPage %>"><%= pagecontents.choice[0].text %></a>
             </div>
             <div id="choice" style="top: 250px">
-                <%= pagecontents.choice[1] %>
+                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[1].nextDivergence %>/<%= pagecontents.choice[1].nextPage %>?prevDivergence=<%= pagecontents.divergence %>&prevPage=<%= pagecontents.page %>&prev2Divergence=<%= prevDivergence %>&prev2Page=<%= prevPage %>"><%= pagecontents.choice[1].text %></a>
             </div>
             <div id="choice" style="top: 450px">
-                <%= pagecontents.choice[2] %>
+                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[2].nextDivergence %>/<%= pagecontents.choice[2].nextPage %>?prevDivergence=<%= pagecontents.divergence %>&prevPage=<%= pagecontents.page %>&prev2Divergence=<%= prevDivergence %>&prev2Page=<%= prevPage %>"><%= pagecontents.choice[2].text %></a>
             </div>
             <div id="choice" style="top: 650px">
-                <%= pagecontents.choice[3] %>
+                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[3].nextDivergence %>/<%= pagecontents.choice[3].nextPage %>?prevDivergence=<%= pagecontents.divergence %>&prevPage=<%= pagecontents.page %>&prev2Divergence=<%= prevDivergence %>&prev2Page=<%= prevPage %>"><%= pagecontents.choice[3].text %></a>
             </div>
         <% } %>
     <% } %>
@@ -112,8 +122,10 @@
 </div>
 <div class="container">
     <hr>
-    <a href="/nodvel/<%= title %>/<%= prevDivergence %>/<%= prevPage %>" style="float: left;">Prev</a>
-    <a href="/nodvel/<%= title %>/<%= pagecontents.nextDivergence %>/<%= pagecontents.nextPage %>" style="float: right;">Next</a>
+    <% if(prevDivergence) { %>
+        <a href="/nodvel/<%= title %>/<%= prevDivergence %>/<%= prevPage %>?prevDivergence=<%= prev2Divergence %>&prevPage=<%= prev2Page %>" style="float: left;">Prev</a>
+    <% } %>
+    <a href="/nodvel/<%= title %>/<%= pagecontents.nextDivergence %>/<%= pagecontents.nextPage %>?prevDivergence=<%= pagecontents.divergence %>&prevPage=<%= pagecontents.page %>&prev2Divergence=<%= prevDivergence %>&prev2Page=<%= prevPage %>" style="float: right;">Next</a>
     <hr>
     <form method="post" action="/nodvel/save/<% title %>/<% pagecontents.divergence %>/<% pagecontents.page %>">
         <select name="save" style="display: none;">
