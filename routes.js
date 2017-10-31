@@ -761,32 +761,38 @@ router.get("/saved/delete/:title/:divergence/:page", ensureAuthenticated, functi
 //show - showing nodvel to user, reading nodvel part
 router.get("/nodvel/:title/:divergence/:page", ensureAuthenticated, function(req, res, next) {
     Novel.findOne({ title: req.params.title }, function(err, nodvel) {
-        if(req.query.prevDivergence) {
-            let prevDivergence = req.query.prevDivergence;
-        }
-        if(req.query.prevPage) {
-            let prevPage = req.query.prevPage;
-        }
-        if(req.query.prev2Divergence) {
-            let prev2Divergence = req.query.prev2Divergence;
-        }
-        if(req.query.prev2Page) {
-            let prev2Page = req.query.prev2Page;
-        }
         if(err) return next(err);
         if(!nodvel) return next(err);
         if(!nodvel.ended) {
             req.flash("info", "Writer writing this Nodvel now. Please wait until finish.");
             res.redirect("/");
         }
+        let prev = [];
         nodvel.contents.forEach(function(item) {
-            if(item.page === req.params.page && item.divergence === req.params.divergence) {
-                return res.render("show", { pagecontents: item, title: req.params.title, prevDivergence: prevDivergence, prevPage: prevPage, prev2Divergence: prev2Divergence, prev2Page: prev2Page });
+            if(item.nextDivergence == req.params.divergence && item.nextPage == req.params.page) {
+                prev.push(item);
+            }
+            if(item.choice.length > 0) {
+                for(let i = 0; i < item.choice.length; i++) {
+                    if(item.choice[i].nextDivergence == req.params.divergence && item.choice[i].nextPage == req.params.page) {
+                        prev.push(item);
+                        break;
+                    }
+                }
+            }
+        });
+        nodvel.contents.forEach(function(item) {
+            if(item.page == req.params.page && item.divergence == req.params.divergence) {
+                return res.render("show", { pagecontents: item, title: req.params.title, prev: prev });
             }
         });
         req.flash("error", "There's no scene.");
         return res.redirect("back");
     });
+});
+
+router.post("/nodvel/prev/:title", function(req, res) {
+    res.redirect(req.body.prev);
 });
 
 //show - saving part in show, make save point in user DB
