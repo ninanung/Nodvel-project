@@ -6,6 +6,10 @@
         <br>
     <% } %>    
 <% } %>
+<% if(!linked) { %>
+    <h1 style="color: red;">Warning! There's any scene that linked to this page!</h1>
+    <br>
+<% } %>
 <h1><%= contents.title %></h1>
 <h2>Divergence: <%= pagecontents.divergence %></h2>
 <h2>Page: <%= pagecontents.page %></h2>
