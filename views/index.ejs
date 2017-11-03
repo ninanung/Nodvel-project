@@ -1,48 +1,50 @@
 <% include _header %>
 
 <% if (currentUser) { %>
-<h1><%= currentUser.name() %></h1>
+<h2>User, <%= currentUser.username %></h2>
 <hr>
 <h2>List of Nodvel</h2>
-<table style="table-layout: fixed;" class="table table-striped">
-	<thead>
-	<tr>
-		<th scope="row" style="width: 50px;">Num</th>
-		<th style="width: 450px;">Title</th>
-		<th style="width: 100px;">Writer</th>
-		<th style="width: 250px;">Date</th>
-		<th>Genre</th>
-		<th>Like</th>
-	</tr>
-	</thead>
-	<tbody>
-	<% if(contents.length > 0) {%>
-		<% var i = 0 %>
-		<% contents.forEach(function(item) { %>
-		<% i++ %>
+<div>
+	<table style="table-layout: fixed;" class="table table-striped">
+		<thead>
 		<tr>
-			<th scope="row"><%= i %></th>
-			<td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><a href="/nodvel/<%= item.title %>"><%= item.title %></a></td>
-			<td><%= item.writer %></td>
-			<td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><%= item.date %></td>
-			<td><%= item.genre %></td>
-			<td><%= item.like %></td>
+			<th scope="row" style="width: 50px;">Num</th>
+			<th style="width: 450px;">Title</th>
+			<th style="width: 100px;">Writer</th>
+			<th style="width: 250px;">Date</th>
+			<th>Genre</th>
+			<th>Like</th>
 		</tr>
-		<% }) %>
-	<% } else { %>
-		<tr>
-			<td colspan="6">No contents</td>
-		</tr>
-	<% } %>
-	</tbody>
-</table>
+		</thead>
+		<tbody>
+		<% if(contents.length > 0) {%>
+			<% var i = 0 %>
+			<% contents.forEach(function(item) { %>
+			<% i++ %>
+			<tr>
+				<th scope="row"><%= i %></th>
+				<td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><a href="/nodvel/<%= item.title %>"><%= item.title %></a></td>
+				<td><%= item.writer %></td>
+				<td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><%= item.date %></td>
+				<td><%= item.genre %></td>
+				<td><%= item.like %></td>
+			</tr>
+			<% }) %>
+		<% } else { %>
+			<tr>
+				<td colspan="6">No contents</td>
+			</tr>
+		<% } %>
+		</tbody>
+	</table>
+</div>
 <hr>
 <div class="text-center">
 	<p style="display: inline;">page :</p>
 	<% for(var i = 1; i <= pagination; i++) { %>
 		<li style="display: inline;"><a href="/index/<%= i %>" class="next-page"><%= i %></a></li>
 	<% } %>
-	<a href="/writenodvel" class="btn btn-default" style="float: right;">Writing New Nodvel</a>
+	<a href="/writenodvel" class="btn btn-primary" style="float: right;">Writing New Nodvel</a>
 </div>
 <br>
 <% } else { %>
