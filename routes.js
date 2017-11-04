@@ -315,21 +315,22 @@ router.get("/writenodvel/:title/:divergence/:page", ensureAuthenticated, functio
         }
         const divergence = req.params.divergence;
         const page = req.params.page;
-        const linked = false;
+        let linked = false;
         sess = req.session;
         if(sess.user.username === nodvel.writer) {
             nodvel.contents.forEach(function(item) {
                 if(item.nextDivergence == divergence && item.nextPage == page) {
                     linked = true;
-                    break;
                 }
                 if(item.choice.length > 0) {
                     for(let j = 0; j < item.choice.length; j++) {
                         if(itme.choice[j].nextDivergence == divergence && item.choice[j].nextPage == page) {
                             linked = true;
-                            break;
                         }
                     }
+                }
+                if(divergence == 1 && page == 1) {
+                    linked = true;
                 }
             });
             for(let i = 0; i < nodvel.contents.length; i++) {
@@ -480,16 +481,25 @@ router.get("/writenodvel/delete/:title/:divergence/:page", ensureAuthenticated, 
             req.flash("error", "Only writer can delete nodvel page.");
             return res.redirect("/");
         }
+        let find = false;
+        const divergence = req.params.divergence;
+        const page = req.params.page;
+        const title = req.params.title;
         for(let i = 0; i < nodvel.contents.length; i++) {
-            if(nodvel.contents[i].divergence == req.params.divergence && nodvel.contents[i].page == req.params.page) {
+            if(nodvel.contents[i].divergence == divergence && nodvel.contents[i].page == page) {
                 nodvel.contents.splice(i, 1);
-                req.flash("info", "Page is deleted.");
-                const url = "/writenodvel/" + req.params.title + "/" + req.params.divergence + "/" + req.params.page;
-                return res.redirect(url);
+                find = true;
             }
         }
-        req.flash("error", "There's no scene has that divergence and page");
-        return res.redirect(url);
+        if(!find) {
+            req.flash("error", "There's no scene has that divergence and page");
+            return res.redirect("/writenodvel/search/" + title);
+        }
+        nodvel.save(function(err) {
+            if(err) return next(err);
+            req.flash("info", "Page is deleted.");
+            return res.redirect("/writenodvel/" + title + "/" + divergence + "/" + page);
+        });
     });    
 });
 
