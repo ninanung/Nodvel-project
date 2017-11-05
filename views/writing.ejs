@@ -4,7 +4,11 @@
 <br>
 <hr>
 <br>
-<form method="post" action="/writenodvel/<%= contents.title %>">
+<% if(pagecontents) { %>
+    <form method="post" action="/writenodvel/rewrite/<%= contents.title %>">
+<% } else { %>
+    <form method="post" action="/writenodvel/<%= contents.title %>">
+<% } %>
     <h3>Paging part</h3>
     <p>Paging part is must be fullfilled.</p>
     <br>
@@ -65,8 +69,8 @@
     <p>Image part is also not a necessary. Select if you need.</p>
     <br>
     <h3>Character</h3>
-    <label>Character 1:
-        <select name="character1">
+    <div>Character 1:
+        <select name="character1" class="selectpicker">
             <option value="none" selected>none</option>
             <% if(contents.characterImgs.length > 0) { %>
                 <% contents.characterImgs.forEach(function(item) { %>
@@ -74,9 +78,9 @@
                 <% }) %>
             <% } %>
         </select>
-    </label>
-    <label>Character 2:
-        <select name="character2">
+    </div>
+    <div>Character 2:
+        <select name="character2" class="selectpicker">
             <option value="none" selected>none</option>
             <% if(contents.characterImgs.length > 0) { %>
                 <% contents.characterImgs.forEach(function(item) { %>
@@ -84,9 +88,9 @@
                 <% }) %>
             <% } %>
         </select>
-    </label>
-    <label>Character 3:
-        <select name="character3">
+    </div>
+    <div>Character 3:
+        <select name="character3" class="selectpicker">
             <option value="none" selected>none</option>
             <% if(contents.characterImgs.length > 0) { %>
                 <% contents.characterImgs.forEach(function(item) { %>
@@ -94,9 +98,9 @@
                 <% }) %>
             <% } %>
         </select>
-    </label>
-    <label>Character 4:
-        <select name="character3">
+    </div>
+    <div>Character 4:
+        <select name="character3" class="selectpicker">
             <option value="none" selected>none</option>
             <% if(contents.characterImgs.length > 0) { %>
                 <% contents.characterImgs.forEach(function(item) { %>
@@ -104,11 +108,11 @@
                 <% }) %>
             <% } %>
         </select>
-    </label>
+    </div>
     <br>
     <h3>Background</h3>
-    <label>Background:
-        <select name="background">
+    <div>Background:
+        <select name="background" class="selectpicker">
             <option value="none" selected>none</option>
             <% if(contents.backgroundImgs.length > 0) { %>
                 <% contents.backgroundImgs.forEach(function(item) { %>
@@ -116,7 +120,7 @@
                 <% }) %>
             <% } %>
         </select>
-    </label>
+    </div>
     <br>
     <input type="submit" class="btn btn-primary" style="float: right;" value="Save">
     <% if(pagecontents) { %>
