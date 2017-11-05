@@ -14,7 +14,7 @@
             </div>
             <ul class="nav navbar-nav navbar-right">
                 <% if (currentUser) { %>
-                <li><a href="/">Hello, <%= currentUser.username %></a></li>
+                <li><p>Hello, <%= currentUser.username %></p></li>
                 <li><a href="/logout">Log out</a></li>
                 <% } else { %>
                 <li><a href="/login">Log in</a></li>
