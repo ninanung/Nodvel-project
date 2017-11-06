@@ -1,0 +1,124 @@
+<% include _header %>
+
+<h1><%= contents.title %></h1>
+<br>
+<hr>
+<br>
+<form method="post" action="/writenodvel/rewrite/<%= contents.title %>">
+    <h3>Paging part</h3>
+    <p>Paging part is must be fullfilled.</p>
+    <br>
+    <label>Divergence: <input type="number" class="form-control" name="divergence" value="<%= pagecontents.divergence %>" required></label>
+    <label>Page: <input type="number" class="form-control" name="page" value="<%= pagecontents.page %>" required></label>
+    <label>Next Divergence: <input type="number" class="form-control" name="nextDivergence" value="<%= pagecontents.nextDivergence %>"></label>
+    <label>Next Page: <input type="number" class="form-control" name="nextPage" value="<%= pagecontents.nextPage %>"></label>
+    <hr>
+    <br>
+    <h2>Text part</h2>
+    <p>Text part is not a necessary for writing. But if you need, should type it up.</p>
+    <p>And, in choice, you must write Divergence and Page. Mind this.</p>
+    <br>
+    <h3>Text</h3>
+    <% if(pagecontents && pagecontents.text) { %> 
+        <input type="text" class="form-control" style="width: 1100px; height: 100px;" name="text" value="<%= pagecontents.text %>"></input>
+    <% } else { %>
+        <input type="text" class="form-control" style="width: 1100px; height: 100px;" name="text" placeholder="Mind the name of character!"></input> 
+    <% } %>
+    <br>
+    <h3>Choice</h3>
+    <% if(pagecontents && pagecontents.choice.length > 0) { %> 
+        <% for(let i = 0; i < 4; i++) { %>
+            <% if(pagecontents.choice[i]) { %> 
+                <label>Choice <%= (i + 1) %>: <input type="text" class="form-control" style="width: 1100px; height: 100px;" name="choice<%= (i + 1) %>text" value="<%= pagecontents.choice[i].text %>"></label>
+                <label>Choice <%= (i + 1) %> Divergence: <input type="number" class="form-control" name="choice<%= (i + 1) %>nextDivergence" value="<%= pagecontents.choice[i].nextDivergence %>"></label>
+                <label>Choice <%= (i + 1) %> Page: <input type="number" class="form-control" name="choice<%= (i + 1) %>nextPage" value="<%= pagecontents.choice[i].nextPage %>"></label>
+            <% } else { %>
+                <label>Choice <%= (i + 1) %>: <input type="text" class="form-control" style="width: 1100px; height: 100px;" name="choice<%= (i + 1) %>text" placeholder="Choice"></label>
+                <label>Choice <%= (i + 1) %> Divergence: <input type="number" class="form-control" name="choice<%= (i + 1) %>nextDivergence" placeholder="Path to next page"></label>
+                <label>Choice <%= (i + 1) %> Page: <input type="number" class="form-control" name="choice<%= (i + 1) %>nextPage" placeholder="Path to next page"></label>
+            <% } %>
+        <% } %>
+    <%} else { %>
+        <p>There's any choice contents in this page.</p>
+        <% for(let i = 0; i < 4; i++) { %>
+            <label>Choice <%= (i + 1) %>: <input type="text" class="form-control" style="width: 1100px; height: 100px;" name="choice<%= (i + 1) %>text" placeholder="Choice"></label>
+            <label>Choice <%= (i + 1) %> Divergence: <input type="number" class="form-control" name="choice<%= (i + 1) %>nextDivergence" placeholder="Path to next page"></label>
+            <label>Choice <%= (i + 1) %> Page: <input type="number" class="form-control" name="choice<%= (i + 1) %>nextPage" placeholder="Path to next page"></label>
+        <% } %>
+    <% } %>
+    <hr>
+    <br>
+    <h2>Image part</h2>
+    <p>Image part is also not a necessary. Select if you need.</p>
+    <br>
+    <h3>Character</h3>
+    <div>Character 1:
+        <select name="character1" class="selectpicker">
+            <option value="none" selected>none</option>
+            <% if(contents.characterImgs.length > 0) { %>
+                <% contents.characterImgs.forEach(function(item) { %>
+                    <option value="<%= item.name %>"><%= item.name %></option>
+                <% }) %>
+            <% } %>
+        </select>
+    </div>
+    <div>Character 2:
+        <select name="character2" class="selectpicker">
+            <option value="none" selected>none</option>
+            <% if(contents.characterImgs.length > 0) { %>
+                <% contents.characterImgs.forEach(function(item) { %>
+                    <option value="<%= item.name %>"><%= item.name %></option>
+                <% }) %>
+            <% } %>
+        </select>
+    </div>
+    <div>Character 3:
+        <select name="character3" class="selectpicker">
+            <option value="none" selected>none</option>
+            <% if(contents.characterImgs.length > 0) { %>
+                <% contents.characterImgs.forEach(function(item) { %>
+                    <option value="<%= item.name %>"><%= item.name %></option>
+                <% }) %>
+            <% } %>
+        </select>
+    </div>
+    <div>Character 4:
+        <select name="character3" class="selectpicker">
+            <option value="none" selected>none</option>
+            <% if(contents.characterImgs.length > 0) { %>
+                <% contents.characterImgs.forEach(function(item) { %>
+                    <option value="<%= item.name %>"><%= item.name %></option>
+                <% }) %>
+            <% } %>
+        </select>
+    </div>
+    <br>
+    <h3>Background</h3>
+    <div>Background:
+        <select name="background" class="selectpicker">
+            <option value="none" selected>none</option>
+            <% if(contents.backgroundImgs.length > 0) { %>
+                <% contents.backgroundImgs.forEach(function(item) { %>
+                    <option value="<%= item.name %>"><%= item.name %></option>
+                <% }) %>
+            <% } %>
+        </select>
+    </div>
+    <br>
+    <hr>
+    <h2>MEMO</h2>
+    <% if(pagecontents && pagecontents.memo) { %> 
+        <input type="text" class="form-control" style="width: 1100px; height: 100px;" name="memo" value="<%= pagecontents.memo %>"></input>
+    <% } else { %>
+        <input type="text" class="form-control" style="width: 1100px; height: 100px;" name="memo" placeholder="MEMO for this page"></input> 
+    <% } %>
+    <br>
+    <br>
+    <input type="submit" class="btn btn-primary" style="float: right;" value="Save">
+    <a href="/writeNodvel/<%= contents.title %>/<%= pagecontents.divergence %>/<%= pagecontents.page %>" style="float: left;" class="btn btn-primary">Cancel</a>
+    <br>
+    <br>
+</form>
+<br>
+
+<% include _footer %>
