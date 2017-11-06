@@ -358,7 +358,7 @@ router.post("/writenodvel/:title", function(req, res, next) {
         if(nodvel.contents.length > 0) {
             for(let i = 0; i < nodvel.contents.length; i++) {
                 if(nodvel.contents[i].divergence == divergence && nodvel.contents[i].page == page) {
-                    req.flash("info", "This is writed page");
+                    req.flash("info", "This is already writed page");
                     return res.redirect("/writenodvel/" + req.params.title + "/" + divergence + "/" + page);   
                 }
             }
@@ -511,10 +511,22 @@ router.post("/writenodvel/search/:title", function(req, res, next) {
             return res.redirect("/");
         }
         let contents = []; 
+        let test;
+        let memo;
+        const searchWord = req.body.searchWord;
         nodvel.contents.forEach(function(item) {
             if(item.text || item.memo) {
-                if(item.text.search(req.body.searchWord) || item.memo.search(req.body.searchWord)) {
-                    contents.push(item);
+                test = item.text;
+                memo = item.memo;
+                if(test) {
+                    if(test.match(searchWord)) {
+                        contents.push(item);
+                    }
+                }
+                else if(memo) {
+                    if(memo.match(searchWord)) {
+                        contents.push(item);
+                    }
                 }
             }
         });
@@ -534,10 +546,10 @@ router.get("/writenodvel/rewrite/:title/:divergence/:page", ensureAuthenticated,
         if(sess.user.username === nodvel.writer) {
             for(let i = 0; i < nodvel.contents.length; i++) {
                 if(nodvel.contents[i].divergence == req.params.divergence && nodvel.contents[i].page == req.params.page) {
-                    return res.render("writing", { contents: nodvel, pagecontents: nodvel.contents[i] });
+                    return res.render("rewriting", { contents: nodvel, pagecontents: nodvel.contents[i] });
                 }
             }
-            req.flash("error", "There's no contents in that divergence and page.");
+            req.flash("info", "There's no contents in that divergence and page.");
             return res.render("writing", { contents: nodvel, pagecontents: false, divergence: req.params.divergence, page: req.params.page });
         }
         else {
@@ -565,9 +577,7 @@ router.post("/writenodvel/rewrite/:title", function(req, res, next) {
             if(nodvel.contents[i].divergence === divergence && nodvel.contents[i].page === page) {
                 nodvel.contents.splice(i, 1);
                 init = true;
-                break;
             }
-            else continue;
         }
         if(!init) {
             req.flash("error", "There's no contents in that divergence and page.");
@@ -650,7 +660,10 @@ router.post("/writenodvel/rewrite/:title", function(req, res, next) {
             }
         });
         nodvel.save(function(err) {
-            if(err) return next(err);
+            if(err) {
+                console.log(err);
+                return next(err);
+            }
             req.flash("info", "Rewriting saved.")
             return res.redirect("/writenodvel/" + nodvel.title + "/" + divergence + "/" + page);
         });
