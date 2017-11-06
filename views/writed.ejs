@@ -28,10 +28,10 @@
 <h2>Text</h2>
 <hr>
 <% if(pagecontents.text) { %>
-    <a><%= pagecontents.text %></a>
+    <p><%= pagecontents.text %></p>
     <hr>
 <% } else { %>
-    <a>No text in this scene</a>
+    <p>No text in this scene</p>
     <hr>
 <% } %>
 <h2>Choice</h2>
@@ -39,8 +39,8 @@
 <% if(pagecontents.choice.length > 0) { %>
     <% pagecontents.character.forEach(function(item) { %>
         <a href="/writenodvel/<%= contents.title %>/<%= item.nextDivergence %>/<%= item.nextPage %>">item.text</a>
-        <a>Next divergence: <%= item.nextDivergence %></a>
-        <a>Next page: <%= item.nextPage %></a>
+        <p>Next divergence: <%= item.nextDivergence %></p>
+        <p>Next page: <%= item.nextPage %></p>
         <hr>
     <% }) %>
 <% } else { %>
@@ -55,7 +55,7 @@
     <% }) %>
     <hr>
 <% } else { %>
-    <a>No character in this scene</a>
+    <p>No character in this scene</p>
     <hr>
 <% } %>
 <h2>Background</h2>
@@ -64,9 +64,18 @@
     <img src="<%= pagecontents.background %>" width="900px" height="auto"/>
     <hr>
 <% } else { %>
-    <a>No background in this scene</a>
+    <p>No background in this scene</p>
     <hr>
 <% } %>
+<h2>MEMO</h2>
+<hr>
+<% if(pagecontents.memo) { %>
+    <p><%= pagecontents.memo %></p>
+<% } else { %>
+    <p>No memo in this scene</p>
+<% } %>
+<hr>
+<br>
 <% if(pagecontents.nextDivergence && pagecontents.nextPage) { %>
     <a href="/writenodvel/<%= contents.title %>/<%= pagecontents.nextDivergence %>/<%= pagecontents.nextPage %>" class="btn btn-info">Go to next scene</a>
 <% } %>
