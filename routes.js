@@ -12,17 +12,24 @@ const storage = multer.diskStorage({
         cb(null, "./images");
     },
     filename: function(req, file, cb) {
-        let filename = file.originalname + "-" + Date.now;
+        let getSome = new Date();
+        const now = "-" + getSome.getTime();
+        let filename = file.originalname;
         if(file.mimetype === "image/png") {
+            filename = filename.replace(".png", "");
+            filename += now;
             filename = filename + ".png";
         }
         else if(file.mimetype === "image/jpeg") {
+            filename = filename.replace(".jpg", "");
+            filename = filename.replace(".jpeg", "");
+            filename += now;
             filename = filename + ".jpeg";
         }
         cb(null, filename);
     }
 });
-var upload = multer({ storage: storage });
+var upload = multer({ storage: storage }).single("file");
 
 const User = require("./models/user");
 const Novel = require("./models/novel");
@@ -284,23 +291,25 @@ router.get("/writenodvel/upload/:title", ensureAuthenticated, function(req, res,
     });
 });
 
-router.post("/writenodvel/upload/:title", upload.single("image"), function(req, res, next) {
-    Novel.findOne({ title: req.params.rirle }, function(err, nodvel) {
+router.post("/writenodvel/upload/:title", upload, function(req, res, next) {
+    Novel.findOne({ title: req.params.title }, function(err, nodvel) {
         if(err) return next(err);
         if(!nodvel) {
             req.flash("error", "There's no Nodvel has that title.");
             return res.redirect("/");
         }
+        console.log(req.file);
+        const path = "/" + req.file.filename;
         if(req.body.character) {
-            nodvel.characterImgs.push({ path: req.file.path, name: req.file.filename });
+            nodvel.characterImgs.push({ path: path, name: req.file.filename });
         }
         else if(req.body.background) {
-            nodvel.backgroundImgs.push({ img: req.file.path, name: req.file.filename });
+            nodvel.backgroundImgs.push({ img: path, name: req.file.filename });
         }
         nodvel.save(function(err) {
             if(err) return next(err);
             req.flash("info", "Image uploaded.")
-            return res.redirect("writenodvel/upload/" + nodvel.title);
+            return res.redirect("/writenodvel/upload/" + nodvel.title);
         })
     });  
 });
