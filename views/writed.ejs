@@ -51,7 +51,9 @@
 <hr>
 <% if(pagecontents.character.length > 0) { %>
     <% pagecontents.character.forEach(function(item) { %>
-        <img src="<%= path %>" width="500px" height="auto"/>
+        <div>
+            <img src="<%= item.path %>" width="500px" height="auto" style="object-fit: contain;" />
+        </div>
     <% }) %>
     <hr>
 <% } else { %>
@@ -61,7 +63,9 @@
 <h2>Background</h2>
 <hr>
 <% if(pagecontents.background.name) { %>
-    <img src="<%= pagecontents.background %>" width="900px" height="auto"/>
+    <div>
+        <img src="<%= pagecontents.background.path %>" width="900px" height="auto"/>
+    </div>
     <hr>
 <% } else { %>
     <p>No background in this scene</p>
