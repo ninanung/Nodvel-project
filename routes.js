@@ -333,7 +333,7 @@ router.get("/writenodvel/:title/:divergence/:page", ensureAuthenticated, functio
                 }
                 if(item.choice.length > 0) {
                     for(let j = 0; j < item.choice.length; j++) {
-                        if(itme.choice[j].nextDivergence == divergence && item.choice[j].nextPage == page) {
+                        if(item.choice[j].nextDivergence == divergence && item.choice[j].nextPage == page) {
                             linked = true;
                         }
                     }
@@ -390,30 +390,30 @@ router.post("/writenodvel/:title", function(req, res, next) {
                         }
                     }
                 }
-                if(req.body.choice1text && req.body.choice1nextDivergence && req.body.choice1nextPage) {
+                if(req.body.choice1Text && req.body.choice1nextDivergence && req.body.choice1nextPage) {
                     item.choice.push({
-                        text: choice1Text,
+                        text: req.body.choice1Text,
                         nextDivergence: req.body.choice1nextDivergence,
                         nextPage: req.body.choice1nextPage
                     });
                 }
-                if(req.body.choice2text && req.body.choice2nextDivergence && req.body.choice2nextPage) {
+                if(req.body.choice2Text && req.body.choice2nextDivergence && req.body.choice2nextPage) {
                     item.choice.push({
-                        text: choice2Text,
+                        text: req.body.choice2Text,
                         nextDivergence: req.body.choice2nextDivergence,
                         nextPage: req.body.choice2nextPage
                     });
                 }
-                if(req.body.choice3text && req.body.choice3nextDivergence && req.body.choice3nextPage) {
+                if(req.body.choice3Text && req.body.choice3nextDivergence && req.body.choice3nextPage) {
                     item.choice.push({
-                        text: choice3Text,
+                        text: req.body.choice3Text,
                         nextDivergence: req.body.choice3nextDivergence,
                         nextPage: req.body.choice3nextPage
                     });
                 }
-                if(req.body.choice4text && req.body.choice4nextDivergence && req.body.choice4nextPage) {
+                if(req.body.choice4Text && req.body.choice4nextDivergence && req.body.choice4nextPage) {
                     item.choice.push({
-                        text: choice4Text,
+                        text: req.body.choice4Text,
                         nextDivergence: req.body.choice4nextDivergence,
                         nextPage: req.body.choice4nextPage
                     });
@@ -453,7 +453,7 @@ router.post("/writenodvel/:title", function(req, res, next) {
             if(nextDivergence && nextPage) {
                 return res.redirect("/writenodvel/" + nodvel.title + "/" + nextDivergence + "/" + nextPage);
             }
-            else if(req.body.choice1text && req.body.choice1nextDivergence && req.body.choice1nextPage) {
+            else if(req.body.choice1Text && req.body.choice1nextDivergence && req.body.choice1nextPage) {
                 return res.redirect("/writenodvel/" + nodvel.title + "/" + req.body.choice1nextDivergence + "/" + req.body.choice1nextPage);
             }
         });
