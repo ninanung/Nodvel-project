@@ -11,17 +11,17 @@
     <br>
 <% } %>
 <h1><%= contents.title %></h1>
-<h2>Divergence: <%= pagecontents.divergence %></h2>
-<h2>Page: <%= pagecontents.page %></h2>
+<h2>Divergence - <%= pagecontents.divergence %></h2>
+<h2>Page - <%= pagecontents.page %></h2>
 <% if(pagecontents.nextDivergence) { %>
-    <h2>Next divergence: <%= pagecontents.nextDivergence %></h2>
+    <h2>Next divergence - <%= pagecontents.nextDivergence %></h2>
 <% } else { %>
-    <h2>Next divergence: There's no next divergence</h2>
+    <h2>Next divergence - There's no next divergence</h2>
 <% } %>
 <% if(pagecontents.nextPage) { %>
-    <h2>Next page: <%= pagecontents.nextPage %></h2>
+    <h2>Next page - <%= pagecontents.nextPage %></h2>
 <% } else { %>
-    <h2>Next page: There's no next page</h2>
+    <h2>Next page - There's no next page</h2>
 <% } %>
 <br>
 <hr>
@@ -37,10 +37,10 @@
 <h2>Choice</h2>
 <hr>
 <% if(pagecontents.choice.length > 0) { %>
-    <% pagecontents.character.forEach(function(item) { %>
-        <a href="/writenodvel/<%= contents.title %>/<%= item.nextDivergence %>/<%= item.nextPage %>">item.text</a>
-        <p>Next divergence: <%= item.nextDivergence %></p>
-        <p>Next page: <%= item.nextPage %></p>
+    <% pagecontents.choice.forEach(function(item) { %>
+        <p>Text - <a href="/writenodvel/<%= contents.title %>/<%= item.nextDivergence %>/<%= item.nextPage %>"><%= item.text %></a></p>
+        <p>Next divergence - <%= item.nextDivergence %></p>
+        <p>Next page - <%= item.nextPage %></p>
         <hr>
     <% }) %>
 <% } else { %>
