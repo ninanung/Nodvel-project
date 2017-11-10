@@ -1,58 +1,42 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Nodvel</title>
-    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <style>
-        * {
-                margin: 0px;
-                padding: 0px;
-                border: 0px;
-        }
-        #choice {
-                font-size: 1em;
-                position: absolute;
-                z-index: 4;
-                left: 300px;
-                border: 20px;
-                width: 600px;
-                height: 100px;
-        }
-        #character {
-                top: 220px;
-                position: absolute;
-                z-index: 2;
-        }
-        #text {
-                border: 20px;
-                font-size: 1em;
-                position: absolute; 
-                z-index: 3;
-                width: 900px;
-                height: 200px;
-                left: 150px;
-                top: 630px;
-        }
-    </style>
-</head>
-<body>
-    <% errors.forEach(function(error) { %>
-        <div class="alert alert-danger" role="alert">
-            <%= error %>
-        </div>
-    <% }) %>
-    <% infos.forEach(function(info) { %>
-        <div class="alert alert-info" role="alert">
-            <%= info %>
-        </div>
-    <% }) %>
-<div class="container" style="position: relative; overflow: hidden; width: 100%; height: 100%;"> 
-    <% if(pagecontents.background) { %>
-        <img src="<%= pagecontents.background %>" style="position: absolute; z-index: 1; top: 0px; left: 0px; width: 1200px; height: 980px;">
+<% include _header %>
+
+<style>
+* {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+}
+#choice {
+    font-size: 1em;
+    position: absolute;
+    z-index: 4;
+    left: 300px;
+    border: 20px;
+    width: 600px;
+    height: 100px;
+}
+#character {
+    top: 220px;
+    position: absolute;
+    z-index: 2;
+}
+#text {
+    border: 20px;
+    font-size: 1em;
+    position: absolute; 
+    z-index: 3;
+    width: 900px;
+    height: 200px;
+    left: 150px;
+    top: 630px;
+}
+</style>
+
+<div style="position: relative; overflow: hidden; width: 100%; height: 100%;"> 
+    <% if(pagecontents.background.name) { %>
+        <img src="<%= pagecontents.background.path %>" style="position: absolute; z-index: 1; top: 0px; left: 0px; width: 1200px; height: 980px;">
     <% } else { %>
-        <div style="position: absolute; z-index: 1; top: 0px; left: 0px; width: 100%; height: 100%; background-color: black;"></div>
+        <div style="position: absolute; z-index: 1; top: 0px; left: 0px; width: 1200px; height: 980px; background-color: black;"></div>
     <% } %>
     <% if(pagecontents.character.length > 0) { %>
         <% if(pagecontents.character.length === 1) { %>
@@ -120,7 +104,7 @@
         </div>
     <% } %>
 </div>
-<div class="container">
+<div>
     <hr>
     <% if(prev.length > 0) { %>
         <form method="post" action="/nodvel/prev/<% title %>">
@@ -132,17 +116,17 @@
             <input type="submit" value="prev" style="float: left;" class="btn btn-primary">
         </form>
     <% } %>
-    <% if(nextDivergence) { %>
-        <a href="/nodvel/<%= title %>/<%= pagecontents.nextDivergence %>/<%= pagecontents.nextPage %>" style="float: right;">Next</a>
+    <% if(pagecontents.nextDivergence) { %>
+        <a href="/nodvel/<%= title %>/<%= pagecontents.nextDivergence %>/<%= pagecontents.nextPage %>" class="btn btn-primary" style="float: right;">Next</a>
     <% } %>
     <hr>
     <form method="post" action="/nodvel/save/<% title %>/<% pagecontents.divergence %>/<% pagecontents.page %>">
         <select name="save" style="display: none;">
             <option value="save" selected>save</option>
         </select>
-        <input type="submit" value="save" style="float: right;" class="btn btn-default">
+        <input type="submit" value="save" style="float: right;" class="btn btn-primary">
     </form>
-    <a href="/nodvel/<%= contents.title %>" style="float: left;" class="btn btn default">Main page</a>
+    <a href="/nodvel/<%= title %>" style="float: left;" class="btn btn-primary">Main page</a>
 </div>
-</body>
-</html>
+
+<% include _footer %>
