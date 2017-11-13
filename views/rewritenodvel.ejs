@@ -3,7 +3,7 @@
 <h1>Basic information change</h1>
 <hr>
 <p>Writer : <%= contents.writer %></p>
-<form action="/writenodvel/rewrite/<%= contents.title %>" method="post">
+<form action="/writenodvel/simpleinfo/rewrite/<%= contents.title %>" method="post">
 	<h4>Title</h4>
 	<input name="title" type="taxt" class="form-control" value="<%= contents.title %>" required>
 	<br>
