@@ -304,7 +304,7 @@ router.post("/writenodvel/upload/:title", upload, function(req, res, next) {
             nodvel.characterImgs.push({ path: path, name: req.file.filename });
         }
         else if(req.body.background) {
-            nodvel.backgroundImgs.push({ img: path, name: req.file.filename });
+            nodvel.backgroundImgs.push({ path: path, name: req.file.filename });
         }
         nodvel.save(function(err) {
             if(err) return next(err);
@@ -312,6 +312,43 @@ router.post("/writenodvel/upload/:title", upload, function(req, res, next) {
             return res.redirect("/writenodvel/upload/" + nodvel.title);
         })
     });  
+});
+
+router.get("/writenodvel/upload/:part/delete/:title/:filename", ensureAuthenticated, function(req, res, next) {
+    Novel.findOne({ title: req.params.title }, function(err, nodvel) {
+        if(err) {
+            console.log(err);
+            return next(err);
+        }
+        if(!nodvel) {
+            req.flash("error", "There's no Nodvel has that title.");
+            return res.redirect("/");
+        }
+        if(req.params.part === "character") {
+            for(let i = 0; i < nodvel.characterImgs.length; i++) {
+                if(nodvel.characterImgs[i].name === req.params.filename) {
+                    fs.unlinkSync("./images" + nodvel.characterImgs[i].path);
+                    nodvel.characterImgs.splice(i, 1);
+                }
+            }
+        }
+        if(req.params.part === "background") {
+            for(let i = 0; i < nodvel.backgroundImgs.length; i++) {
+                if(nodvel.backgroundImgs[i].name === req.params.filename) {
+                    fs.unlinkSync("./images" + nodvel.backgroundImgs[i].path);
+                    nodvel.backgroundImgs.splice(i, 1);
+                }
+            }
+        }
+        nodvel.save(function(err) {
+            if(err) {
+                console.log(err);
+                return next(err);
+            }
+            req.flash("info", "Image deleted.")
+            return res.redirect("/writenodvel/upload/" + nodvel.title);
+        });
+    });
 });
 
 //writing, writed - paging
@@ -385,8 +422,8 @@ router.post("/writenodvel/:title", function(req, res, next) {
                 if(req.body.background !== "none") {
                     for(let i = 0; i < nodvel.backgroundImgs.length; i++) {
                         if(req.body.background === nodvel.backgroundImgs[i].name) {
-                            item.background.path = nodvel.characterImgs[i].path;
-                            item.background.name = nodvel.characterImgs[i].name;
+                            item.background.path = nodvel.backgroundImgs[i].path;
+                            item.background.name = nodvel.backgroundImgs[i].name;
                         }
                     }
                 }
@@ -600,8 +637,8 @@ router.post("/writenodvel/rewrite/:title", function(req, res, next) {
                 if(req.body.background !== "none") {
                     for(let i = 0; i < nodvel.backgroundImgs.length; i++) {
                         if(req.body.background === nodvel.backgroundImgs[i].name) {
-                            item.background.path = nodvel.characterImgs[i].path;
-                            item.background.name = nodvel.characterImgs[i].name;
+                            item.background.path = nodvel.backgroundImgs[i].path;
+                            item.background.name = nodvel.backgroundImgs[i].name;
                         }
                     }
                 }
@@ -801,6 +838,12 @@ router.post("/nodvel/:title/delete", function(req, res, next) {
         if(err) {
             console.log(err);
             return res.redirect("back");
+        }
+        for(let i = 0; i < nodvel.characterImgs.length; i++) {
+            fs.unlinkSync("./images" + nodvel.characterImgs[i].path);
+        }
+        for(let i = 0; i < nodvel.backgroundImgs.length; i++) {
+            fs.unlinkSync("./images" + nodvel.backgroundImgs[i].path);
         }
         req.flash("error", req.params.title + " is deleted");
         console.log(req.params.title + " deleted");
