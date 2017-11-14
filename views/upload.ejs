@@ -14,7 +14,7 @@
 <ul>
 <% if(contents.characterImgs.length > 0) { %>
     <% contents.characterImgs.forEach(function(item) { %>
-        <li><%= item.name %></li>
+        <li><%= item.name %><a href="/writenodvel/upload/character/delete/<%= contents.title %>/<%= item.name %>" style="color: red;" class="btn btn-info">Delete</a></li>
     <% }) %>
 <% } else { %>
     <p>There's no image yet.</p>
@@ -36,7 +36,7 @@
 <ul>
 <% if(contents.backgroundImgs.length > 0) { %>
     <% contents.backgroundImgs.forEach(function(item) { %>
-        <li><%= item.name %></li>
+        <li><%= item.name %><a href="/writenodvel/upload/background/delete/<%= contents.title %>/<%= item.name %>" style="color: red;" class="btn btn-info">Delete</a></li>
     <% }) %>
 <% } else { %>
     <p>There's no image yet.</p>
