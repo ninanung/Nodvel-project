@@ -32,78 +32,98 @@
 }
 </style>
 
-<div style="position: relative; overflow: hidden; width: 100%; height: 100%;"> 
+<div style="position: absolute; top: 0px; left: 0px; overflow: hidden; width: 1200px; height: 980px; z-index: 1;"> 
     <% if(pagecontents.background.name) { %>
-        <img src="<%= pagecontents.background.path %>" style="position: absolute; z-index: 1; top: 0px; left: 0px; width: 1200px; height: 980px;">
+        <img src="<%= pagecontents.background.path %>" width="auto" height="980px">
     <% } else { %>
-        <div style="position: absolute; z-index: 1; top: 0px; left: 0px; width: 1200px; height: 980px; background-color: black;"></div>
-    <% } %>
-    <% if(pagecontents.character.length > 0) { %>
-        <% if(pagecontents.character.length === 1) { %>
-                <img id="character" src="<%= pagecontents.character[0].path %>" style="left: 450px; ">
-        <% } %>
-        <% if(pagecontents.character.length === 2) { %>
-                <img id="character" src="<%= pagecontents.character[0].path %>" style="left: 300px;">
-                <img id="character" src="<%= pagecontents.character[1].path %>" style="left: 600px;">
-        <% } %>
-        <% if(pagecontents.character.length === 3) { %>
-                <img id="character" src="<%= pagecontents.character[0].path %>" style="left: 150px;">
-                <img id="character" src="<%= pagecontents.character[1].path %>" style="left: 450px;">
-                <img id="character" src="<%= pagecontents.character[2].path %>" style="left: 750px;">
-        <% } %>
-        <% if(pagecontents.character.length === 4) { %>
-                <img id="character" src="<%= pagecontents.character[0].path %>" style="left: 0px;">
-                <img id="character" src="<%= pagecontents.character[1].path %>" style="left: 300px;">
-                <img id="character" src="<%= pagecontents.character[2].path %>" style="left: 600px;">
-                <img id="character" src="<%= pagecontents.character[3].path %>" style="left: 900px;">
-        <% } %>
-    <% } %>
-    <% if(pagecontents.choice.length > 0) { %>
-        <% if(pagecontents.choice.length === 1) { %>
-            <div id="choice" style="top: 390px;">
-                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[0].nextDivergence %>/<%= pagecontents.choice[0].nextPage %>"><%= pagecontents.choice[0].text %></a>
-            </div>
-        <% } %>
-        <% if(pagecontents.choice.length === 2) { %>
-            <div id="choice" style="top: 220px;">
-                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[0].nextDivergence %>/<%= pagecontents.choice[0].nextPage %>"><%= pagecontents.choice[0].text %></a>
-            </div>
-            <div id="choice" style="top: 420px">
-                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[1].nextDivergence %>/<%= pagecontents.choice[1].nextPage %>"><%= pagecontents.choice[1].text %></a>
-            </div>
-        <% } %>
-        <% if(pagecontents.choice.length === 3) { %>
-            <div id="choice" style="top: 100px">
-                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[0].nextDivergence %>/<%= pagecontents.choice[0].nextPage %>"><%= pagecontents.choice[0].text %></a>
-            </div>
-            <div id="choice" style="top: 300px">
-                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[1].nextDivergence %>/<%= pagecontents.choice[1].nextPage %>"><%= pagecontents.choice[1].text %></a>
-            </div>
-            <div id="choice" style="top: 500px">
-                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[2].nextDivergence %>/<%= pagecontents.choice[2].nextPage %>"><%= pagecontents.choice[2].text %></a>
-            </div>
-        <% } %>
-        <% if(pagecontents.choice.length === 4) { %>
-            <div id="choice" style="top: 50px">
-                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[0].nextDivergence %>/<%= pagecontents.choice[0].nextPage %>"><%= pagecontents.choice[0].text %></a>
-            </div>
-            <div id="choice" style="top: 250px">
-                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[1].nextDivergence %>/<%= pagecontents.choice[1].nextPage %>"><%= pagecontents.choice[1].text %></a>
-            </div>
-            <div id="choice" style="top: 450px">
-                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[2].nextDivergence %>/<%= pagecontents.choice[2].nextPage %>"><%= pagecontents.choice[2].text %></a>
-            </div>
-            <div id="choice" style="top: 650px">
-                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[3].nextDivergence %>/<%= pagecontents.choice[3].nextPage %>"><%= pagecontents.choice[3].text %></a>
-            </div>
-        <% } %>
-    <% } %>
-    <% if(pagecontents.text) { %>
-        <div id="text">
-            <%= pagecontents.text %>
-        </div>
+        <div style="position: 0px; width: 1200px; height: 980px; background-color: black;"></div>
     <% } %>
 </div>
+<% if(pagecontents.character.length > 0) { %>
+    <% if(pagecontents.character.length === 1) { %>
+        <div>
+            <img id="character" src="<%= pagecontents.character[0].path %>" style="left: 450px; ">
+        </div>
+    <% } %>
+    <% if(pagecontents.character.length === 2) { %>
+        <div>
+            <img id="character" src="<%= pagecontents.character[0].path %>" style="left: 300px;">
+        </div>
+        <div>
+            <img id="character" src="<%= pagecontents.character[1].path %>" style="left: 600px;">
+        </div>
+    <% } %>
+    <% if(pagecontents.character.length === 3) { %>
+        <div>
+            <img id="character" src="<%= pagecontents.character[0].path %>" style="left: 150px;">
+        </div>
+        <div>
+            <img id="character" src="<%= pagecontents.character[1].path %>" style="left: 450px;">
+        </div>
+        <div>
+            <img id="character" src="<%= pagecontents.character[2].path %>" style="left: 750px;">
+        </div>
+    <% } %>
+    <% if(pagecontents.character.length === 4) { %>
+        <div>
+            <img id="character" src="<%= pagecontents.character[0].path %>" style="left: 0px;">
+        </div>
+        <div>
+            <img id="character" src="<%= pagecontents.character[1].path %>" style="left: 300px;">
+        </div>
+        <div>
+            <img id="character" src="<%= pagecontents.character[2].path %>" style="left: 600px;">
+        </div>
+        <div>
+            <img id="character" src="<%= pagecontents.character[3].path %>" style="left: 900px;">
+        </div>
+    <% } %>
+<% } %>
+<% if(pagecontents.choice.length > 0) { %>
+    <% if(pagecontents.choice.length === 1) { %>
+        <div id="choice" style="top: 390px;">
+            <a href="/nodvel/<%= title %>/<%= pagecontents.choice[0].nextDivergence %>/<%= pagecontents.choice[0].nextPage %>"><%= pagecontents.choice[0].text %></a>
+        </div>
+    <% } %>
+    <% if(pagecontents.choice.length === 2) { %>
+        <div id="choice" style="top: 220px;">
+            <a href="/nodvel/<%= title %>/<%= pagecontents.choice[0].nextDivergence %>/<%= pagecontents.choice[0].nextPage %>"><%= pagecontents.choice[0].text %></a>
+        </div>
+        <div id="choice" style="top: 420px">
+            <a href="/nodvel/<%= title %>/<%= pagecontents.choice[1].nextDivergence %>/<%= pagecontents.choice[1].nextPage %>"><%= pagecontents.choice[1].text %></a>
+        </div>
+    <% } %>
+    <% if(pagecontents.choice.length === 3) { %>
+        <div id="choice" style="top: 100px">
+            <a href="/nodvel/<%= title %>/<%= pagecontents.choice[0].nextDivergence %>/<%= pagecontents.choice[0].nextPage %>"><%= pagecontents.choice[0].text %></a>
+        </div>
+        <div id="choice" style="top: 300px">
+            <a href="/nodvel/<%= title %>/<%= pagecontents.choice[1].nextDivergence %>/<%= pagecontents.choice[1].nextPage %>"><%= pagecontents.choice[1].text %></a>
+        </div>
+        <div id="choice" style="top: 500px">
+            <a href="/nodvel/<%= title %>/<%= pagecontents.choice[2].nextDivergence %>/<%= pagecontents.choice[2].nextPage %>"><%= pagecontents.choice[2].text %></a>
+        </div>
+    <% } %>
+    <% if(pagecontents.choice.length === 4) { %>
+        <div id="choice" style="top: 50px">
+            <a href="/nodvel/<%= title %>/<%= pagecontents.choice[0].nextDivergence %>/<%= pagecontents.choice[0].nextPage %>"><%= pagecontents.choice[0].text %></a>
+        </div>
+        <div id="choice" style="top: 250px">
+            <a href="/nodvel/<%= title %>/<%= pagecontents.choice[1].nextDivergence %>/<%= pagecontents.choice[1].nextPage %>"><%= pagecontents.choice[1].text %></a>
+        </div>
+        <div id="choice" style="top: 450px">
+            <a href="/nodvel/<%= title %>/<%= pagecontents.choice[2].nextDivergence %>/<%= pagecontents.choice[2].nextPage %>"><%= pagecontents.choice[2].text %></a>
+        </div>
+        <div id="choice" style="top: 650px">
+            <a href="/nodvel/<%= title %>/<%= pagecontents.choice[3].nextDivergence %>/<%= pagecontents.choice[3].nextPage %>"><%= pagecontents.choice[3].text %></a>
+        </div>
+    <% } %>
+<% } %>
+<% if(pagecontents.text) { %>
+    <div id="text">
+        <%= pagecontents.text %>
+    </div>
+<% } %>
 <div>
     <hr>
     <% if(prev.length > 0) { %>
