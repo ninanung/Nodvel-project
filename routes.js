@@ -866,9 +866,11 @@ router.get("/saved/delete/:title/:divergence/:page", ensureAuthenticated, functi
     User.findOne({ username: sess.user.username }, function(err, user) {
         if(err) return next(err);
         if(!user) return next(err);
-        for(let i = 0; i < user.save.length; i++) {
-            if(user.save[i].title === req.params.title && user.save[i].divergence === req.params.divergence && user.save[i].page === req.params.page) {
+        let deleted = false;
+        for(let i = 0; i < user.savePoint.length; i++) {
+            if(user.savePoint[i].title === req.params.title && user.savePoint[i].divergence === req.params.divergence && user.savePoint[i].page === req.params.page) {
                 user.savePoint.splice(i, 1);
+                deleted = true;
                 user.save(function(err) {
                     if(err) return next(err);
                     req.flash("info", "Save point deleted.");
@@ -876,8 +878,10 @@ router.get("/saved/delete/:title/:divergence/:page", ensureAuthenticated, functi
                 });
             }
         }
-        req.flash("error", "Unknown error exist. Deleteing stopped.");
-        return res.redirect("/saved");
+        if(!deleted) {
+            req.flash("error", "Unknown error exist. Deleteing stopped.");
+            return res.redirect("/saved");
+        }
     });
 });
 
@@ -892,7 +896,7 @@ router.get("/nodvel/:title/:divergence/:page", ensureAuthenticated, function(req
         }
         let prev = [];
         let pass = false;
-        const divergence = req.params.title;
+        const divergence = req.params.divergence;
         const page = req.params.page;
         nodvel.contents.forEach(function(item) {
             if(item.nextDivergence == divergence && item.nextPage == page) {
@@ -907,9 +911,7 @@ router.get("/nodvel/:title/:divergence/:page", ensureAuthenticated, function(req
             }
         });
         nodvel.contents.forEach(function(item) {
-            if(item.page == page && item.divergence == page) {
-                console.log("find page!");
-                console.log(item.background);
+            if(item.page == page && item.divergence == divergence) {
                 pass = true;
                 return res.render("show", { pagecontents: item, title: req.params.title, prev: prev });
             }
@@ -927,9 +929,9 @@ router.post("/nodvel/prev/:title", function(req, res) {
 
 //show - saving part in show, make save point in user DB
 router.post("/nodvel/save/:title/:divergence/:page", function(req, res, next) {
-    sess = req.sesion;
+    sess = req.session;
     User.findOne({ username: sess.user.username }, function(err, user) {
-        user.push({
+        user.savePoint.push({
             title: req.params.title,
             divergence: req.params.divergence,
             page: req.params.page
