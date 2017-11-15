@@ -1,84 +1,52 @@
-<% include _header %>
+<% include _showHeader %>
 
-<style>
-* {
-    margin: 0px;
-    padding: 0px;
-    border: 0px;
-}
-#choice {
-    font-size: 1em;
-    position: absolute;
-    z-index: 4;
-    left: 300px;
-    border: 20px;
-    width: 600px;
-    height: 100px;
-}
-#character {
-    top: 220px;
-    position: absolute;
-    z-index: 2;
-}
-#text {
-    border: 20px;
-    font-size: 1em;
-    position: absolute; 
-    z-index: 3;
-    width: 900px;
-    height: 200px;
-    left: 150px;
-    top: 630px;
-}
-</style>
-
-<div style="position: absolute; top: 0px; left: 0px; overflow: hidden; width: 1200px; height: 980px; z-index: 1;"> 
+<div style="position: relative; overflow: hidden; width: 1110px; height: 700px; z-index: 1;"> 
     <% if(pagecontents.background.name) { %>
-        <img src="<%= pagecontents.background.path %>" width="auto" height="980px">
+        <img src="<%= pagecontents.background.path %>" width="auto;" height="700px">
     <% } else { %>
-        <div style="position: 0px; width: 1200px; height: 980px; background-color: black;"></div>
+        <div style="width: 1200px; height: 980px; background-color: black;"></div>
+    <% } %>
+    <% if(pagecontents.character.length > 0) { %>
+        <% if(pagecontents.character.length === 1) { %>
+            <div style="position: absolute; top: 100px; left: 425px; overflow: hidden; width: 250px; height: 500px; z-index: 2;">
+                <img src="<%= pagecontents.character[0].path %>" style="left: 550px" width="auto" height="500px">
+            </div>
+        <% } %>
+        <% if(pagecontents.character.length === 2) { %>
+            <div style="position: absolute; top: 100px; left: 200px; overflow: hidden; width: 250px; height: 500px; z-index: 2;">
+                <img src="<%= pagecontents.character[0].path %>" width="auto" height="500px">
+            </div>
+            <div style="position: absolute; top: 100px; right: 200px; overflow: hidden; width: 250px; height: 500px; z-index: 2;">
+                <img src="<%= pagecontents.character[1].path %>" width="auto" height="500px">
+            </div>
+        <% } %>
+        <% if(pagecontents.character.length === 3) { %>
+            <div style="position: absolute; top: 100px; left: 100px; overflow: hidden; width: 250px; height: 500px; z-index: 2;">
+                <img src="<%= pagecontents.character[0].path %>" width="auto" height="500px">
+            </div>
+            <div style="position: absolute; top: 100px; right: 425px; overflow: hidden; width: 250px; height: 500px; z-index: 2;">
+                <img src="<%= pagecontents.character[1].path %>" width="auto" height="500px">
+            </div>
+            <div style="position: absolute; top: 100px; right: 100px; overflow: hidden; width: 250px; height: 500px; z-index: 2;">
+                <img src="<%= pagecontents.character[2].path %>" width="auto" height="500px">
+            </div>
+        <% } %>
+        <% if(pagecontents.character.length === 4) { %>
+            <div style="position: absolute; top: 100px; left: 20px; overflow: hidden; width: 250px; height: 500px; z-index: 2;">
+                <img src="<%= pagecontents.character[0].path %>" width="auto" height="500px">
+            </div>
+            <div style="position: absolute; top: 100px; left: 295px; overflow: hidden; width: 250px; height: 500px; z-index: 2;">
+                <img src="<%= pagecontents.character[1].path %>" width="auto" height="500px">
+            </div>
+            <div style="position: absolute; top: 100px; right: 295px; overflow: hidden; width: 250px; height: 500px; z-index: 2;">
+                <img src="<%= pagecontents.character[2].path %>" width="auto" height="500px">
+            </div>
+            <div style="position: absolute; top: 100px; right: 20px; overflow: hidden; width: 250px; height: 500px; z-index: 2;">
+                <img src="<%= pagecontents.character[3].path %>" width="auto" height="500px">
+            </div>
+        <% } %>
     <% } %>
 </div>
-<% if(pagecontents.character.length > 0) { %>
-    <% if(pagecontents.character.length === 1) { %>
-        <div>
-            <img id="character" src="<%= pagecontents.character[0].path %>" style="left: 450px; ">
-        </div>
-    <% } %>
-    <% if(pagecontents.character.length === 2) { %>
-        <div>
-            <img id="character" src="<%= pagecontents.character[0].path %>" style="left: 300px;">
-        </div>
-        <div>
-            <img id="character" src="<%= pagecontents.character[1].path %>" style="left: 600px;">
-        </div>
-    <% } %>
-    <% if(pagecontents.character.length === 3) { %>
-        <div>
-            <img id="character" src="<%= pagecontents.character[0].path %>" style="left: 150px;">
-        </div>
-        <div>
-            <img id="character" src="<%= pagecontents.character[1].path %>" style="left: 450px;">
-        </div>
-        <div>
-            <img id="character" src="<%= pagecontents.character[2].path %>" style="left: 750px;">
-        </div>
-    <% } %>
-    <% if(pagecontents.character.length === 4) { %>
-        <div>
-            <img id="character" src="<%= pagecontents.character[0].path %>" style="left: 0px;">
-        </div>
-        <div>
-            <img id="character" src="<%= pagecontents.character[1].path %>" style="left: 300px;">
-        </div>
-        <div>
-            <img id="character" src="<%= pagecontents.character[2].path %>" style="left: 600px;">
-        </div>
-        <div>
-            <img id="character" src="<%= pagecontents.character[3].path %>" style="left: 900px;">
-        </div>
-    <% } %>
-<% } %>
 <% if(pagecontents.choice.length > 0) { %>
     <% if(pagecontents.choice.length === 1) { %>
         <div id="choice" style="top: 390px;">
@@ -120,31 +88,29 @@
     <% } %>
 <% } %>
 <% if(pagecontents.text) { %>
-    <div id="text">
+    <div>
         <%= pagecontents.text %>
     </div>
 <% } %>
 <div>
-    <hr>
     <% if(prev.length > 0) { %>
-        <form method="post" action="/nodvel/prev/<% title %>">
+        <form method="post" action="/nodvel/prev/<%= title %>">
             <select name="prev" style="float: left;" class >
                 <% prev.forEach(function(item) { %>
                     <option value="/nodvel/<%= title %>/<%= item.divergence %>/<%= item.page %>">Divergence: <%= item.divergence %> Page: <%= item.page %></option>
                 <% }) %>
             </select>
-            <input type="submit" value="prev" style="float: left;" class="btn btn-primary">
+            <input type="submit" value="Prev" style="float: left;" class="btn btn-info">
         </form>
     <% } %>
-    <% if(pagecontents.nextDivergence) { %>
+    <% if(pagecontents.nextDivergence && pagecontents.nextPage) { %>
         <a href="/nodvel/<%= title %>/<%= pagecontents.nextDivergence %>/<%= pagecontents.nextPage %>" class="btn btn-primary" style="float: right;">Next</a>
     <% } %>
-    <hr>
-    <form method="post" action="/nodvel/save/<% title %>/<% pagecontents.divergence %>/<% pagecontents.page %>">
+    <form method="post" action="/nodvel/save/<%= title %>/<%= pagecontents.divergence %>/<%= pagecontents.page %>">
         <select name="save" style="display: none;">
             <option value="save" selected>save</option>
         </select>
-        <input type="submit" value="save" style="float: right;" class="btn btn-primary">
+        <input type="submit" value="save" style="float: right;" class="btn btn-info">
     </form>
     <a href="/nodvel/<%= title %>" style="float: left;" class="btn btn-primary">Main page</a>
 </div>
