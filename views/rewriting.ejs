@@ -1,6 +1,6 @@
 <% include _header %>
 
-<h1><%= contents.title %></h1>
+<h1 style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><%= contents.title %></h1>
 <br>
 <hr>
 <br>
@@ -86,7 +86,7 @@
         </select>
     </div>
     <div>Character 4:
-        <select name="character3" class="selectpicker">
+        <select name="character4" class="selectpicker">
             <option value="none" selected>none</option>
             <% if(contents.characterImgs.length > 0) { %>
                 <% contents.characterImgs.forEach(function(item) { %>

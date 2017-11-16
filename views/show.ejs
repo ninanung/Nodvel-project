@@ -2,7 +2,7 @@
 
 <div style="position: relative; overflow: hidden; width: 1110px; height: 700px; z-index: 1;"> 
     <% if(pagecontents.background.name) { %>
-        <img src="<%= pagecontents.background.path %>" width="auto;" height="700px">
+        <img src="<%= pagecontents.background.path %>" width="1110px;" height="auto">
     <% } else { %>
         <div style="width: 1200px; height: 980px; background-color: black;"></div>
     <% } %>
@@ -46,52 +46,52 @@
             </div>
         <% } %>
     <% } %>
+    <% if(pagecontents.choice.length > 0) { %>
+        <% if(pagecontents.choice.length === 1) { %>
+            <div style="position: absolute; padding: 10px; background-color:azure; top: 300px; right: 105px; overflow: hidden; width: 900px; height: 100px; z-index: 4;">
+                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[0].nextDivergence %>/<%= pagecontents.choice[0].nextPage %>"><h3><%= pagecontents.choice[0].text %></h3></a>
+            </div>
+        <% } %>
+        <% if(pagecontents.choice.length === 2) { %>
+            <div style="position: absolute; padding: 10px; background-color:azure; top: 200px; right: 105px; overflow: hidden; width: 900px; height: 100px; z-index: 4;">
+                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[0].nextDivergence %>/<%= pagecontents.choice[0].nextPage %>"><h3><%= pagecontents.choice[0].text %></h3></a>
+            </div>
+            <div style="position: absolute; padding: 10px; background-color:azure; top: 400px; right: 105px; overflow: hidden; width: 900px; height: 100px; z-index: 4;">
+                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[0].nextDivergence %>/<%= pagecontents.choice[0].nextPage %>"><h3><%= pagecontents.choice[1].text %></h3></a>
+            </div>
+        <% } %>
+        <% if(pagecontents.choice.length === 3) { %>
+            <div style="position: absolute; padding: 10px; background-color:azure; top: 100px; right: 105px; overflow: hidden; width: 900px; height: 100px; z-index: 4;">
+                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[0].nextDivergence %>/<%= pagecontents.choice[0].nextPage %>"><h3><%= pagecontents.choice[0].text %></h3></a>
+            </div>
+            <div style="position: absolute; padding: 10px; background-color:azure; top: 300px; right: 105px; overflow: hidden; width: 900px; height: 100px; z-index: 4;">
+                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[0].nextDivergence %>/<%= pagecontents.choice[0].nextPage %>"><h3><%= pagecontents.choice[1].text %></h3></a>
+            </div>
+            <div style="position: absolute; padding: 10px; background-color:azure; top: 500px; right: 105px; overflow: hidden; width: 900px; height: 100px; z-index: 4;">
+                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[0].nextDivergence %>/<%= pagecontents.choice[0].nextPage %>"><h3><%= pagecontents.choice[2].text %></h3></a>
+            </div>
+        <% } %>
+        <% if(pagecontents.choice.length === 4) { %>
+            <div style="position: absolute; padding: 10px; background-color:azure; top: 60px; right: 105px; overflow: hidden; width: 900px; height: 100px; z-index: 4;">
+                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[0].nextDivergence %>/<%= pagecontents.choice[0].nextPage %>"><h3><%= pagecontents.choice[0].text %></h3></a>
+            </div>
+            <div style="position: absolute; padding: 10px; background-color:azure; top: 220px; right: 105px; overflow: hidden; width: 900px; height: 100px; z-index: 4;">
+                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[0].nextDivergence %>/<%= pagecontents.choice[0].nextPage %>"><h3><%= pagecontents.choice[1].text %></h3></a>
+            </div>
+            <div style="position: absolute; padding: 10px; background-color:azure; top: 380px; right: 105px; overflow: hidden; width: 900px; height: 100px; z-index: 4;">
+                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[0].nextDivergence %>/<%= pagecontents.choice[0].nextPage %>"><h3><%= pagecontents.choice[2].text %></h3></a>
+            </div>
+            <div style="position: absolute; padding: 10px; background-color:azure; top: 540px; right: 105px; overflow: hidden; width: 900px; height: 100px; z-index: 4;">
+                <a href="/nodvel/<%= title %>/<%= pagecontents.choice[0].nextDivergence %>/<%= pagecontents.choice[0].nextPage %>"><h3><%= pagecontents.choice[3].text %></h3></a>
+            </div>
+        <% } %>
+    <% } %>
+    <% if(pagecontents.text) { %>
+        <div style="position: absolute; padding: 10px; border-width: thick; border-color: black; background-color: white; top: 500px; right: 55px; overflow: hidden; width: 1000px; height: 150px; z-index: 3;">
+            <h2><%= pagecontents.text %></h2>
+        </div>
+    <% } %>
 </div>
-<% if(pagecontents.choice.length > 0) { %>
-    <% if(pagecontents.choice.length === 1) { %>
-        <div id="choice" style="top: 390px;">
-            <a href="/nodvel/<%= title %>/<%= pagecontents.choice[0].nextDivergence %>/<%= pagecontents.choice[0].nextPage %>"><%= pagecontents.choice[0].text %></a>
-        </div>
-    <% } %>
-    <% if(pagecontents.choice.length === 2) { %>
-        <div id="choice" style="top: 220px;">
-            <a href="/nodvel/<%= title %>/<%= pagecontents.choice[0].nextDivergence %>/<%= pagecontents.choice[0].nextPage %>"><%= pagecontents.choice[0].text %></a>
-        </div>
-        <div id="choice" style="top: 420px">
-            <a href="/nodvel/<%= title %>/<%= pagecontents.choice[1].nextDivergence %>/<%= pagecontents.choice[1].nextPage %>"><%= pagecontents.choice[1].text %></a>
-        </div>
-    <% } %>
-    <% if(pagecontents.choice.length === 3) { %>
-        <div id="choice" style="top: 100px">
-            <a href="/nodvel/<%= title %>/<%= pagecontents.choice[0].nextDivergence %>/<%= pagecontents.choice[0].nextPage %>"><%= pagecontents.choice[0].text %></a>
-        </div>
-        <div id="choice" style="top: 300px">
-            <a href="/nodvel/<%= title %>/<%= pagecontents.choice[1].nextDivergence %>/<%= pagecontents.choice[1].nextPage %>"><%= pagecontents.choice[1].text %></a>
-        </div>
-        <div id="choice" style="top: 500px">
-            <a href="/nodvel/<%= title %>/<%= pagecontents.choice[2].nextDivergence %>/<%= pagecontents.choice[2].nextPage %>"><%= pagecontents.choice[2].text %></a>
-        </div>
-    <% } %>
-    <% if(pagecontents.choice.length === 4) { %>
-        <div id="choice" style="top: 50px">
-            <a href="/nodvel/<%= title %>/<%= pagecontents.choice[0].nextDivergence %>/<%= pagecontents.choice[0].nextPage %>"><%= pagecontents.choice[0].text %></a>
-        </div>
-        <div id="choice" style="top: 250px">
-            <a href="/nodvel/<%= title %>/<%= pagecontents.choice[1].nextDivergence %>/<%= pagecontents.choice[1].nextPage %>"><%= pagecontents.choice[1].text %></a>
-        </div>
-        <div id="choice" style="top: 450px">
-            <a href="/nodvel/<%= title %>/<%= pagecontents.choice[2].nextDivergence %>/<%= pagecontents.choice[2].nextPage %>"><%= pagecontents.choice[2].text %></a>
-        </div>
-        <div id="choice" style="top: 650px">
-            <a href="/nodvel/<%= title %>/<%= pagecontents.choice[3].nextDivergence %>/<%= pagecontents.choice[3].nextPage %>"><%= pagecontents.choice[3].text %></a>
-        </div>
-    <% } %>
-<% } %>
-<% if(pagecontents.text) { %>
-    <div>
-        <%= pagecontents.text %>
-    </div>
-<% } %>
 <div>
     <% if(prev.length > 0) { %>
         <form method="post" action="/nodvel/prev/<%= title %>">
