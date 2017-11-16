@@ -9,7 +9,7 @@ const fs = require("fs");
 const multer = require("multer");
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, "./images");
+        cb(null, "./upload");
     },
     filename: function(req, file, cb) {
         let getSome = new Date();
@@ -188,8 +188,32 @@ router.get("/topten/:genre", ensureAuthenticated, function(req, res, next) {
 //favorits
 router.get("/like", ensureAuthenticated, function(req, res) {
     sess = req.session;
-    const mylike = sess.user.like;
-    return res.render("favorits", { contents: mylike });
+    let deleted = [];
+    for(let i = 0; i < sess.user.like.length; i++) {
+        Novel.findOne({ title: sess.user.like[i].title }, function(err, nodvel) {
+            if(nodvel == null) {
+                deleted.push(i);
+            }
+        })
+    }
+    User.findOne({ username: sess.user.username }, function(err, user) {
+        if(err) {
+            console.log(err);
+            req.flash("error", "Unknown error occured.");
+            return res.redirect("/");
+        }
+        for(let i = 0; i < deleted.length; i++) {
+            user.like.splice(deleted[i], 1);
+        }
+        user.save(function(err) {
+            if(err) {
+                console.log(err);
+                req.flash("error", "Unknown error occured.");
+                return res.redirect("/");
+            }
+            return res.render("favorits", { contents: user.like });
+        });
+    });
 });
 
 //mynodvel
@@ -327,7 +351,7 @@ router.get("/writenodvel/upload/:part/delete/:title/:filename", ensureAuthentica
         if(req.params.part === "character") {
             for(let i = 0; i < nodvel.characterImgs.length; i++) {
                 if(nodvel.characterImgs[i].name === req.params.filename) {
-                    fs.unlinkSync("./images" + nodvel.characterImgs[i].path);
+                    fs.unlinkSync("./upload" + nodvel.characterImgs[i].path);
                     nodvel.characterImgs.splice(i, 1);
                 }
             }
@@ -335,7 +359,7 @@ router.get("/writenodvel/upload/:part/delete/:title/:filename", ensureAuthentica
         if(req.params.part === "background") {
             for(let i = 0; i < nodvel.backgroundImgs.length; i++) {
                 if(nodvel.backgroundImgs[i].name === req.params.filename) {
-                    fs.unlinkSync("./images" + nodvel.backgroundImgs[i].path);
+                    fs.unlinkSync("./upload" + nodvel.backgroundImgs[i].path);
                     nodvel.backgroundImgs.splice(i, 1);
                 }
             }
@@ -757,7 +781,10 @@ router.get("/nodvel/:title", ensureAuthenticated, function(req, res, next) {
 router.post("/nodvel/:title", function(req, res, next) {
     Novel.findOne({ title: req.params.title }, function(err, nodvel) {
         if(err) return next(err);
-        if(!nodvel) return next(err);
+        if(!nodvel) {
+            req.flash("error", "There's no Nodvel : " + req.params.title + ". Maybe deleted.");
+            return res.redirect("/");
+        }
         let like = nodvel.like;
         sess = req.session;
         if(req.body.comment) {
@@ -840,10 +867,10 @@ router.post("/nodvel/:title/delete", function(req, res, next) {
             return res.redirect("back");
         }
         for(let i = 0; i < nodvel.characterImgs.length; i++) {
-            fs.unlinkSync("./images" + nodvel.characterImgs[i].path);
+            fs.unlinkSync("./upload" + nodvel.characterImgs[i].path);
         }
         for(let i = 0; i < nodvel.backgroundImgs.length; i++) {
-            fs.unlinkSync("./images" + nodvel.backgroundImgs[i].path);
+            fs.unlinkSync("./upload" + nodvel.backgroundImgs[i].path);
         }
         req.flash("error", req.params.title + " is deleted");
         console.log(req.params.title + " deleted");
@@ -854,10 +881,31 @@ router.post("/nodvel/:title/delete", function(req, res, next) {
 //save - viewing list of nodvel what user liked
 router.get("/saved", ensureAuthenticated, function(req, res, next) {
     sess = req.session;
+    let deleted = [];
+    for(let i = 0; i < sess.user.savePoint.length; i++) {
+        Novel.findOne({ title: sess.user.savePoint[i].title }, function(err, nodvel) {
+            if(nodvel == null) {
+                deleted.push(i);
+            }
+        })
+    }
     User.findOne({ username: sess.user.username }, function(err, user) {
-        if(err) return next(err);
-        if(!user) return next(err);
-        res.render("save", { contents: user.savePoint });
+        if(err) {
+            console.log(err);
+            req.flash("error", "Unknown error occured.");
+            return res.redirect("/");
+        }
+        for(let i = 0; i < deleted.length; i++) {
+            user.savePoint.splice(deleted[i], 1);
+        }
+        user.save(function(err) {
+            if(err) {
+                console.log(err);
+                req.flash("error", "Unknown error occured.");
+                return res.redirect("/");
+            }
+            return res.render("save", { contents: user.savePoint });
+        });
     });
 });
 

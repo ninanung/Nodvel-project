@@ -30,7 +30,8 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
-app.use(express.static("images"));
+app.use(express.static("static"));
+app.use(express.static("upload"));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
