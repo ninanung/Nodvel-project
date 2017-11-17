@@ -1,6 +1,7 @@
 # Nodvel-project
 
 ![lemon](http://postfiles15.naver.net/MjAxNzExMTdfODcg/MDAxNTEwOTI0NTIyNTcy.SCqfr7ib9Wk2oIbo_j-cezpB3IisLLNRhG9axzA-boEg.4rQHlt6V-TJEbTOfoVkush8oAUzLKIPa_tIrdfa8f80g.PNG.ninanung/%EB%A0%88%EB%AA%AC.png?type=w773)
+
 I make this with Nodvel! Yeah!
 
 ## what is Nodvel?
@@ -21,10 +22,12 @@ I make this for study. So i can't tell when this project end.
 
 ## Nodvel version 1.0.0 Example
 ![demon](http://postfiles3.naver.net/MjAxNzExMTdfNzQg/MDAxNTEwOTI0NTIyNTI0.vO_cd3tx-2N3UcEGOyRzRCIPp7wn46S6vLddu30fOZ4g.SHgtDjNdOJgGVmzxDhPiREMM6pcfOkBcX2QKzkcNExYg.PNG.ninanung/demon.png?type=w773)
-simple text page
+
+Simple text page
 
 ![demon_choice](http://postfiles16.naver.net/MjAxNzExMTdfOTMg/MDAxNTEwOTI0NTIyNTc3.cOvT7bMMiI-UTSg8ZQW2FwqQWNK2PTlW9rjvUfapkvsg.Kh-HSRLVcniq4JSipZrTjXWMNP0UGvVQQNhECwg4z5Yg.PNG.ninanung/select.png?type=w773)
-use choice like this
+
+Use choice like this
 
 Thanks to 'RM' for demon character!
 
