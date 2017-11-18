@@ -26,7 +26,7 @@ Here is a [manual](https://nodvel.herokuapp.com/help).
 
 ## I want to make Nodvel!
 
-[Here is it!](https://nodvel.herokuapp.com)
+[Here is it!](https://nodvel.herokuapp.com). 
 https://nodvel.herokuapp.com
 
 ## Nodvel version 1.0.0 Example
