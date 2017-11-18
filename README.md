@@ -20,6 +20,15 @@ So, simply, this project is visual novel making web service. I think this servic
 
 I make this for study. So i can't tell when this project end.
 
+## How can i use this?
+
+Here is a [manual](https://nodvel.herokuapp.com/help).
+
+## I want to make Nodvel!
+
+[Here is it!](https://nodvel.herokuapp.com)
+https://nodvel.herokuapp.com
+
 ## Nodvel version 1.0.0 Example
 ![demon](http://postfiles3.naver.net/MjAxNzExMTdfNzQg/MDAxNTEwOTI0NTIyNTI0.vO_cd3tx-2N3UcEGOyRzRCIPp7wn46S6vLddu30fOZ4g.SHgtDjNdOJgGVmzxDhPiREMM6pcfOkBcX2QKzkcNExYg.PNG.ninanung/demon.png?type=w773)
 
