@@ -27,7 +27,8 @@ Here is a [manual](https://nodvel.herokuapp.com/help).
 ## I want to make Nodvel!
 
 [Here is it!](https://nodvel.herokuapp.com)  
-https://nodvel.herokuapp.com
+https://nodvel.herokuapp.com  
+If you have 'CodeWatch' ID, don't have to sign in. You can just login with same ID and Password! 
 
 ## Nodvel version 1.0.0 Example
 ![demon](http://postfiles3.naver.net/MjAxNzExMTdfNzQg/MDAxNTEwOTI0NTIyNTI0.vO_cd3tx-2N3UcEGOyRzRCIPp7wn46S6vLddu30fOZ4g.SHgtDjNdOJgGVmzxDhPiREMM6pcfOkBcX2QKzkcNExYg.PNG.ninanung/demon.png?type=w773)
