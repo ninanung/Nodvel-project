@@ -26,7 +26,7 @@ Here is a [manual](https://nodvel.herokuapp.com/help).
 
 ## I want to make Nodvel!
 
-[Here is it!](https://nodvel.herokuapp.com)  
+[Here!](https://nodvel.herokuapp.com)  
 https://nodvel.herokuapp.com  
 If you have 'CodeWatch' ID, don't have to sign in. You can just login with same ID and Password! 
 
